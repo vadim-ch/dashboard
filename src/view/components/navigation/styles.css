@@ -1,0 +1,27 @@
+.navList {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+}
+
+.navListItem {
+  margin-left: 1rem;
+}
+
+
+.navListItem:first-child {
+  margin-left: 0;
+}
+
+.username {
+
+}
+
+.navLink {
+  display: block;
+  padding-top: .425rem;
+  padding-bottom: .425rem;
+  color: rgba(0,0,0,.3);
+  text-decoration: none;
+  font-weight: bold;
+}

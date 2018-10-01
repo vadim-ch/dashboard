@@ -1,0 +1,26 @@
+import { ApiRequest, ApiRequestType } from '../index';
+import { UserPath, UserResponseType } from './types';
+
+export type GetUserType = {
+  id: string;
+};
+
+export interface GetUserResponseType extends UserResponseType {
+}
+
+export class GetUser extends ApiRequest<GetUserResponseType> {
+  constructor(props: GetUserType) {
+    super(ApiRequestType.Get, `${UserPath.Get}/${props.id}`);
+  }
+
+  public get request(): Promise<GetUserResponseType> {
+    return super.request.then(response => {
+      const {id, username, email} = response;
+      return {
+        id,
+        email,
+        username
+      };
+    });
+  }
+}

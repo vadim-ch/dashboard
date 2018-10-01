@@ -1,0 +1,24 @@
+### IDE Files ###
+.idea
+*.iml
+.vscode
+
+### Build artifacts ###
+/public/dist
+/public/index.html
+/tmpBuild
+
+### NPM files ###
+/node_modules
+npm-debug.log
+.npmrc
+
+### MAAAAC ###
+.DS_Store
+
+### Settings ###
+/src/settings.ts
+/src/settings.js
+
+
+/coverage
