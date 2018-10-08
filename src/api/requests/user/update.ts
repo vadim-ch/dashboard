@@ -17,11 +17,12 @@ export class UpdateUser extends ApiRequest<UpdateUserResponseType> {
 
   public get request(): Promise<UpdateUserResponseType> {
     return super.request.then(response => {
-      const {id, username, email} = response;
+      const {id, firstName, lastName, email} = response;
       return {
         id,
         email,
-        username
+        firstName,
+        lastName
       };
     });
   }

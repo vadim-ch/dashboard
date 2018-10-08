@@ -8,8 +8,8 @@ export interface State {
 }
 
 const reducersMap = {
-  domainState: domainState,
-  applicationState: applicationState
+  domainState,
+  applicationState
 };
 
 const appReducers = combineReducers<State>(reducersMap);

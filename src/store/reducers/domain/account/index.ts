@@ -6,10 +6,12 @@ import { REGISTER, RegisterAction } from '../../../actions/auth/register';
 import { GET_USER, GetUserAction } from '../../../actions/user/get-user-action';
 import { START_APP, StartAppAction } from '../../../actions/start-app';
 import { UPDATE_USER, UpdateUserAction } from '../../../actions/user/update-user-action';
+import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/user/get-current-user-action';
 
 const initialState = {
   id: '',
-  username: '',
+  firstName: '',
+  lastName: '',
   email: '',
   accessToken: '',
   refreshToken: '',
@@ -19,7 +21,8 @@ const initialState = {
 
 export interface AccountState extends RequestState {
   id: string;
-  username: string;
+  firstName: string;
+  lastName: string;
   email: string;
   accessToken: string;
   refreshToken: string;
@@ -27,13 +30,22 @@ export interface AccountState extends RequestState {
 
 export function account(
     state: AccountState = initialState,
-    action: StartAppAction | LoginAction | RegisterAction | LogoutAction | RefreshTokenAction | GetUserAction | UpdateUserAction
+    action:
+        StartAppAction |
+        LoginAction |
+        RegisterAction |
+        LogoutAction |
+        RefreshTokenAction |
+        GetUserAction |
+        UpdateUserAction |
+        GetCurrentUserAction
 ): AccountState {
   switch (action.type) {
     case REGISTER:
     case REFRESH_TOKEN:
     case GET_USER:
     case UPDATE_USER:
+    case GET_CURRENT_USER:
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         return {
@@ -63,7 +75,7 @@ export function account(
         ...state,
         accessToken,
         refreshToken
-      }
+      };
     }
     case LOGOUT: {
       if (action.status === RequestStatus.Complete) {

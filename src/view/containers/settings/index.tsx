@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { getCurrentUserId, getCurrentUsername, isAuthenticated } from '../../../store/reducers/domain/account/selectors';
+import {
+  getCurrentUserId,
+  getCurrentUsername,
+  isAuthenticated
+} from '../../../store/reducers/domain/account/selectors';
 import { State } from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
+import { DashboardRouteNames, SettingsRouteNames } from '../../router';
 
 export interface IStateProps {
   isAuthenticated: boolean;
@@ -18,7 +23,8 @@ export interface IDispatchProps {
 }
 
 interface IState {
-  username: string;
+  firstName: string;
+  lastName: string;
 }
 
 type IPropsComponents = IStateProps & IDispatchProps;
@@ -27,53 +33,49 @@ class Settings extends React.PureComponent<IPropsComponents, IState> {
   constructor(props: IPropsComponents) {
     super(props);
     this.state = {
-      username: ''
+      firstName: '',
+      lastName: ''
     };
   }
 
   public componentWillReceiveProps(props: IPropsComponents): void {
-    this.setState({username: props.currentUsername})
+    // this.setState({firstName: props.currentUsername});
   }
 
   public render(): JSX.Element {
     const {isAuthenticated} = this.props;
-    const {username} = this.state;
+    const {firstName, lastName} = this.state;
     return (
         <React.Fragment>
-          <h1>Настройки профиля</h1>
-          <form onSubmit={this.submitForm}>
-            <fieldset>
-
-              <fieldset className="form-group">
-                <input
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={this.changeUsername} />
-              </fieldset>
-
-              <button
-                  className="btn btn-lg btn-primary pull-xs-right"
-                  type="submit"
-                  /*disabled={this.props.inProgress}*/>
-                Изменить
-              </button>
-
-            </fieldset>
-          </form>
+          <h1>Настройки приложения</h1>
+          <Switch>
+            <Route
+                exact={true}
+                path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`}
+                component={() => 'Общие настройки1'}
+            />
+            <Route
+                path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`}
+                component={() => 'Настройки уведомлений'}
+            />
+          </Switch>
         </React.Fragment>
     );
   }
 
-  private changeUsername = (event): void => {
-    this.setState({username: event.target.value});
-  };
+  private changeFirstName = (event: any): void => {
+    this.setState({firstName: event.target.value});
+  }
 
-  private submitForm = (event): void => {
+  private changeLastName = (event: any): void => {
+    this.setState({lastName: event.target.value});
+  }
+
+  private submitForm = (event: any): void => {
     event.preventDefault();
-    const {username} = this.state;
+    const {firstName, lastName} = this.state;
     const {currentUserId} = this.props;
-    this.props.actions.updateUser(currentUserId, username);
+    this.props.actions.updateUser(currentUserId, firstName, lastName);
   }
 }
 

@@ -15,17 +15,18 @@ export class Register extends ApiRequest<RegisterResponseType>  {
     super(ApiRequestType.Post, AuthPath.Register, props);
   }
 
-  public get request() {
+  public get request(): Promise<RegisterResponseType> {
     return super.request.then(response => {
       const {accessToken, refreshToken} = response;
-      const {sub: id, email, username} = jwtDecode(accessToken);
+      const {sub: id, email, firstName, lastName} = jwtDecode(accessToken);
       return {
         id,
         email,
-        username,
+        firstName,
+        lastName,
         accessToken,
-        refreshToken,
-      }
+        refreshToken
+      };
     });
   }
 }

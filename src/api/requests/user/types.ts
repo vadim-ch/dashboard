@@ -1,11 +1,13 @@
 export type UserResponseType = {
-  username: string;
+  firstName: string;
+  lastName: string;
   id: string;
   email: string;
 };
 
 export const UserPath = {
   Get: 'experts',
+  GetCurrent: 'experts/current',
   Put: 'experts',
-  GetAllExperts: 'experts'
+  GetAll: 'experts'
 };

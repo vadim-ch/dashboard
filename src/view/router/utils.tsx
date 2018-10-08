@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteNames } from './';
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 export const privateRoute = (Component, params, isAuthenticated): JSX.Element => {
   return (
@@ -18,5 +18,5 @@ export const privateRoute = (Component, params, isAuthenticated): JSX.Element =>
                   />
               )
           }
-      />)
+      />);
 };

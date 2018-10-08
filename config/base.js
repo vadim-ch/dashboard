@@ -38,19 +38,19 @@ module.exports = function (env, __dirname) {
     },
     module: {
       rules: [
-        // {
-        //   test: /\.ts(x?)$/,
-        //   exclude: [
-        //     path.resolve(__dirname, 'node_modules'),
-        //   ],
-        //   include: path.resolve(__dirname, 'src'),
-        //   enforce: 'pre',
-        //   loader: 'tslint-loader',
-        //   options: {
-        //     emitErrors: true,
-        //     fix: true
-        //   }
-        // },
+        {
+          test: /\.ts(x?)$/,
+          exclude: [
+            path.resolve(__dirname, 'node_modules'),
+          ],
+          include: path.resolve(__dirname, 'src'),
+          enforce: 'pre',
+          loader: 'tslint-loader',
+          options: {
+            emitErrors: true,
+            fix: true
+          }
+        },
         {
           test: /\.ts(x?)$/,
           exclude: path.resolve(__dirname, 'node_modules'),
@@ -58,23 +58,9 @@ module.exports = function (env, __dirname) {
           use: ['ts-loader']
         },
 
-        // {
-        //   test: /\.js$/,
-        //   exclude: /(node_modules)/,
-        //   use: {
-        //     loader: 'babel-loader'
-        //   }
-        // },
-
-        // {
-        //   test: /plugin\.css$/,
-        //   use: [
-        //     'style-loader', 'css-loader'
-        //   ]
-        // },
-
         {
-          test: /\.css$/,
+          test: /\.*es.less/,
+          exclude: '/node_modules',
           use: [
             {
               loader: MiniCssExtractPlugin.loader,
@@ -87,6 +73,8 @@ module.exports = function (env, __dirname) {
             {
               loader: 'css-loader',
               query: {
+                import: false,
+                url: false,
                 modules: true,
                 camelCase: true,
                 minimize: true,
@@ -94,27 +82,47 @@ module.exports = function (env, __dirname) {
               }
             },
             {
-              loader: 'postcss-loader',
-              options: { plugins: function() { return [ require('autoprefixer')() ]} }
+              loader: 'less-loader',
+              options: {
+                javascriptEnabled: true
+              }
+            }
+            // {
+            //   loader: 'postcss-loader',
+            //   options: { plugins: function() { return [ require('autoprefixer')() ]} }
+            // }
+          ]
+        },
+        {
+          test: /\/global.less$/,
+          exclude: '/node_modules',
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                // you can specify a publicPath here
+                // by default it use publicPath in webpackOptions.output
+                publicPath: '../'
+              }
+            },
+            {
+              loader: 'css-loader',
+              query: {
+                minimize: true
+              }
+            },
+            // {
+            //   loader: 'postcss-loader',
+            //   options: { plugins: function() { return [ require('autoprefixer')() ]} }
+            // }
+            {
+              loader: 'less-loader',
+              options: {
+                javascriptEnabled: true
+              }
             }
           ]
         }
-        // {
-        //   test: /\.less$/,
-        //   use: [
-        //     {
-        //       loader: "style-loader"
-        //     },
-        //     {
-        //       loader: "css-loader",
-        //       options: {
-        //         sourceMap: true,
-        //         modules: true,
-        //         localIdentName: "[local]___[hash:base64:5]"
-        //       }
-        //     },
-        //   ]
-        // }
       ]
     },
     plugins: [

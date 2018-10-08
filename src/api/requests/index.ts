@@ -24,7 +24,7 @@ export class ApiRequest<ResponseT> implements IBaseRequest {
     this._type = requestType;
     this._props = queryOrBodyParams;
     this._path = path;
-    axios.defaults.baseURL = 'http://localhost:3001/api';
+    axios.defaults.baseURL = 'http://localhost:3000/api';
   }
 
   public get request(): Promise<ResponseT> {

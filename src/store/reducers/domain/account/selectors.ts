@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { State } from '../../index';
 import { AccountState } from './index';
-import { RequestStatus } from '../../../../api/types';
+import { RequestErrors, RequestStatus } from '../../../../api/types';
 
 export const getAccount = (state: State): AccountState => state.domainState.account;
 
@@ -12,10 +12,10 @@ export const isAuthenticated = createSelector(
     }
 );
 
-export const isAuthLoaded = createSelector(
+export const isAuthPending = createSelector(
     [getAccount],
     (account: AccountState): boolean => {
-      return account.status === RequestStatus.Complete;
+      return account.status === RequestStatus.Pending;
     }
 );
 
@@ -26,15 +26,19 @@ export const getRefreshToken = createSelector(
     }
 );
 
-
 export const getCurrentUsername = createSelector(
     [getAccount],
     (account: AccountState): string => {
-      return account.username;
+      return account.firstName ? account.firstName : account.email;
     }
 );
 
-
+export const getCurrentUserChars = createSelector(
+    [getAccount],
+    (account: AccountState): string => {
+      return (account.firstName && account.lastName) ? `${account.firstName[0]}${account.lastName[0]}`.toUpperCase() : '';
+    }
+);
 
 export const getCurrentUserId = createSelector(
     [getAccount],

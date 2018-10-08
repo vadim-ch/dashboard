@@ -1,7 +1,8 @@
 export type AuthResponseType = {
   accessToken: string;
   refreshToken: string;
-  username: string;
+  firstName: string;
+  lastName: string;
   id: string;
   email: string;
 };

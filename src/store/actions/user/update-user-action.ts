@@ -1,7 +1,7 @@
 import { ActionCreator } from 'redux';
 import { LoginResponseType } from '../../../api/requests/auth/login';
 import { RequestAction } from '../../../api/types';
-import { UpdateUser, UpdateUserResponseType } from '../../../api/requests/user/update-expert-by-id';
+import { UpdateUser, UpdateUserResponseType } from '../../../api/requests/user/update';
 
 export const UPDATE_USER = 'update-user';
 

@@ -1,16 +1,16 @@
 import { ActionCreator } from 'redux';
 import { RequestAction } from '../../../api/types';
-import { GetAllExperts, GetAllExpertsResponseType } from '../../../api/requests/user/get-all-experts';
+import { GetAllCabinets, GetAllCabinetsResponseType } from '../../../api/requests/cabinet/get-all-cabinets';
 
 export const GET_ALL_EXPERTS = 'get-all-experts';
 
-export interface GetAllExpertsAction extends RequestAction<GetAllExpertsResponseType> {
+export interface GetAllExpertsAction extends RequestAction<GetAllCabinetsResponseType> {
   type: typeof GET_ALL_EXPERTS;
-  payload?: GetAllExpertsResponseType;
+  payload?: GetAllCabinetsResponseType;
 }
 
-export const getAllExperts: ActionCreator<GetAllExpertsAction> = (): GetAllExpertsAction => {
-  const request = new GetAllExperts();
+export const getAllCabinets: ActionCreator<GetAllExpertsAction> = (): GetAllExpertsAction => {
+  const request = new GetAllCabinets();
   return {
     type: GET_ALL_EXPERTS,
     request

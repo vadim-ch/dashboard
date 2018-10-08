@@ -15,6 +15,7 @@
     "@types/axios": "^0.14.0",
     "@types/react-redux": "^6.0.9",
     "axios": "^0.18.0",
+    "antd": "^3.9.3",
     "connected-react-router": "^4.5.0",
     "jwt-decode": "^2.2.0",
     "normalize.css": "^8.0.0",
@@ -25,8 +26,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
-    "reselect": "^3.0.1",
-    "superagent": "^3.8.3"
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "@types/jwt-decode": "^2.2.1",
@@ -41,6 +41,8 @@
     "postcss-loader": "^2.1.6",
     "react-hot-loader": "^4.3.3",
     "style-loader": "^0.21.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
     "ts-loader": "^4.4.2",
     "tslint": "^5.10.0",
     "tslint-loader": "^3.6.0",

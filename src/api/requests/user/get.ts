@@ -15,11 +15,12 @@ export class GetUser extends ApiRequest<GetUserResponseType> {
 
   public get request(): Promise<GetUserResponseType> {
     return super.request.then(response => {
-      const {id, username, email} = response;
+      const {id, firstName, lastName, email} = response;
       return {
         id,
         email,
-        username
+        firstName,
+        lastName
       };
     });
   }
