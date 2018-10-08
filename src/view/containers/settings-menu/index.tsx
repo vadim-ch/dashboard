@@ -54,8 +54,6 @@ class SettingsMenu extends React.PureComponent<IPropsComponents, IState> {
     const {isAuthenticated} = this.props;
     const {pathname} = this.props['location'];
     const activeIndex = menuList.findIndex(item => {
-      console.error(item.path);
-      console.error(pathname);
       return item.path === pathname;
     });
     return (

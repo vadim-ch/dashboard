@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { isAuthenticated } from '../../../store/reducers/domain/account/selectors';
-import { State } from '../../../store/reducers/index';
+import {Route, Switch, Redirect, matchPath} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {bindActionCreators, Dispatch} from 'redux';
+import {isAuthenticated} from '../../../store/reducers/domain/account/selectors';
+import {State} from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
-import { withRouter } from 'react-router-dom';
-import { getCabinets, isCabinetsPending } from '../../../store/reducers/domain/cabinets/selectors';
-import { GetAllCabinetsResponseType } from '../../../api/requests/cabinet/get-all-cabinets';
-import { Link } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import {getCabinets, isCabinetsPending} from '../../../store/reducers/domain/cabinets/selectors';
+import {GetAllCabinetsResponseType} from '../../../api/requests/cabinet/get-all-cabinets';
+import {NavLink} from 'react-router-dom';
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
 import Avatar from 'antd/lib/avatar';
 import Icon from 'antd/lib/icon';
-import { dashboardRoutes } from '../../router/routes';
+import {dashboardRoutes} from '../../router/routes';
 
 const styles = require('./styles.less');
 
@@ -29,9 +29,6 @@ export interface IDispatchProps {
 
 type IPropsComponents = IStateProps & IDispatchProps;
 
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-
 class Sidebar extends React.PureComponent<IPropsComponents, void> {
   public render(): JSX.Element {
     const {cabinetsPending, cabinets} = this.props;
@@ -39,9 +36,11 @@ class Sidebar extends React.PureComponent<IPropsComponents, void> {
     // if (this.props.isAuthenticated) {
     //   return <Redirect to={from} />;
     // }
+    const {pathname} = this.props['location'];
     const menu = (
         <Menu>
-          <Menu.Item key="logout" onClick={() => {}}>
+          <Menu.Item key="logout" onClick={() => {
+          }}>
             <Icon type="logout"/>Выйти
           </Menu.Item>
         </Menu>
@@ -54,18 +53,22 @@ class Sidebar extends React.PureComponent<IPropsComponents, void> {
               11
             </Avatar>
           </Dropdown>
-          <ul>
-            {dashboardRoutes.map((route, index) => (
-                <li>
-                  <Link
-                      key={index}
-                      to={route.path}
-                      exact={route.exact}
-                  >
-                    {route.title}
-                  </Link>
-                </li>
-            ))}
+          <ul className={styles.menu}>
+            {dashboardRoutes.map((route, index) => {
+
+              return (
+                  <li className={styles.item}>
+                    <NavLink
+                        key={index}
+                        to={route.path}
+                        activeClassName={styles.selected}
+                        exact={route.exact}
+                    >
+                      {route.icon}
+                    </NavLink>
+                  </li>
+              );
+            })}
           </ul>
         </React.Fragment>
     );

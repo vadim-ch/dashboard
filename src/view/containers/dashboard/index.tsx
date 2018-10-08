@@ -44,17 +44,25 @@ class Dashboard extends React.PureComponent<IPropsComponents, void> {
             </aside>
             <section className={styles.content}>
               <Row>
+                {dashboardRoutes.map((route, index) => (
+                    <Route
+                        key={index}
+                        path={route.path}
+                        exact={route.exact}
+                        component={route.title}
+                    />
+                ))}
+              </Row>
+              <Row>
                 <Col xs={24} sm={24} md={6} lg={5} xl={5} xxl={4}>
-                  <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {dashboardRoutes.map((route, index) => (
-                        <Route
-                            key={index}
-                            path={route.path}
-                            exact={route.exact}
-                            component={route.menu}
-                        />
-                    ))}
-                  </ul>
+                  {dashboardRoutes.map((route, index) => (
+                      <Route
+                          key={index}
+                          path={route.path}
+                          exact={route.exact}
+                          component={route.menu}
+                      />
+                  ))}
                 </Col>
                 <Col xs={0} sm={0} md={18} lg={19} xl={19} xxl={20}>
                   <Switch>
