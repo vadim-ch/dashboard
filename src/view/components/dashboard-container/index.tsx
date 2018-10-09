@@ -33,28 +33,6 @@ export class DashboardContainer extends React.PureComponent<IProps, {}> {
             <div className={styles.main}>
               {this.props.children}
             </div>
-            {/*{title ? (*/}
-            {/*<Row>*/}
-            {/*<Col xs={24} sm={24} md={6} lg={5} xl={5} xxl={4}>*/}
-            {/*{title}*/}
-            {/*</Col>*/}
-            {/*{subtitle ? (*/}
-            {/*<Col xs={0} sm={0} md={18} lg={19} xl={19} xxl={20}>*/}
-            {/*{subtitle}*/}
-            {/*</Col>*/}
-            {/*) : null}*/}
-            {/*</Row>*/}
-            {/*) : null}*/}
-            {/*<Row>*/}
-            {/*<Col xs={24} sm={24} md={6} lg={5} xl={5} xxl={4}>*/}
-            {/*{menu}*/}
-            {/*</Col>*/}
-            {/*<Col xs={0} sm={0} md={18} lg={19} xl={19} xxl={20}>*/}
-            {/*<div className={styles.container}>*/}
-            {/*{this.props.children}*/}
-            {/*</div>*/}
-            {/*</Col>*/}
-            {/*</Row>*/}
           </div>
       );
     }

@@ -10,10 +10,19 @@ export const RouteNames = {
 
 export const DashboardRouteNames = {
   Home: '/',
+  Cabinets: '/cabinets',
+  Messages: '/messenger',
   Settings: '/settings'
 };
 
 export const SettingsRouteNames = {
   Main: '',
   Notifications: '/notifications'
+};
+
+export const CabinetsRouteNames = {
+  Active: '',
+  Old: '/old',
+  New: '/new',
+  Favorites: '/favorites'
 };

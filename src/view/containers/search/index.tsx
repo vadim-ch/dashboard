@@ -8,8 +8,8 @@ import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom';
 import { PageContainer } from '../../components/page-container';
 import Tabs from 'antd/lib/tabs';
-import SearchByQuestions from '../search-by-questions';
-import SearchBySpecialization from '../search-by-specialisation';
+import SearchByQuestions from './search-by-questions';
+import SearchBySpecialization from './search-by-specialisation';
 const { TabPane } = Tabs;
 
 const styles = require('./styles.less');

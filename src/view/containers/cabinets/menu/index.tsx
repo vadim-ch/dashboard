@@ -6,11 +6,11 @@ import {
   getCurrentUserId,
   getCurrentUsername,
   isAuthenticated
-} from '../../../store/reducers/domain/account/selectors';
-import { State } from '../../../store/reducers/index';
-import * as actions from '../../../store/actions';
+} from '../../../../store/reducers/domain/account/selectors';
+import { State } from '../../../../store/reducers/index';
+import * as actions from '../../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
-import { DashboardRouteNames, SettingsRouteNames } from '../../router';
+import { CabinetsRouteNames, DashboardRouteNames, SettingsRouteNames } from '../../../router/index';
 import { Link } from 'react-router-dom';
 import Menu from 'antd/lib/menu';
 
@@ -36,16 +36,20 @@ type IPropsComponents = IStateProps & IDispatchProps;
 
 const menuList = [
   {
-    title: `Основные`,
-    path: `${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`
+    title: `Активные`,
+    path: `${DashboardRouteNames.Cabinets}${CabinetsRouteNames.Active}`
   },
   {
-    title: `Уведомления`,
-    path: `${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`
+    title: `Завершённые`,
+    path: `${DashboardRouteNames.Cabinets}${CabinetsRouteNames.Old}`
+  },
+  {
+    title: `Избранное`,
+    path: `${DashboardRouteNames.Cabinets}${CabinetsRouteNames.Favorites}`
   }
 ];
 
-class SettingsMenu extends React.PureComponent<IPropsComponents, IState> {
+class CabinetsMenu extends React.PureComponent<IPropsComponents, IState> {
   constructor(props: IPropsComponents) {
     super(props);
   }
@@ -88,4 +92,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
   actions: bindActionCreators<any, any>(actions, dispatch)
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(SettingsMenu as any));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(CabinetsMenu as any));

@@ -10,17 +10,17 @@ import {
 import { State } from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom';
-import { DashboardRouteNames, SettingsRouteNames } from '../../router';
+import { CabinetsRouteNames, DashboardRouteNames } from '../../router';
 import { DashboardContainer } from '../../components/dashboard-container';
-import SettingsMenu from './settings-menu';
+import CabinetsMenu from './menu';
 import { Title } from '../../components/title';
-import MainSettings from './main';
-import NotificationSettings from './notification';
+import MainCabinets from './main';
+import FavoritesCabinets from './favorites';
+import OldCabinets from './old';
+import Drawer from 'antd/lib/drawer';
 
 export interface IStateProps {
-  isAuthenticated: boolean;
-  currentUserId: string;
-  currentUsername: string;
+  newCabinetVisible: boolean;
 }
 
 export interface IDispatchProps {
@@ -29,7 +29,7 @@ export interface IDispatchProps {
 
 type IPropsComponents = IStateProps & IDispatchProps;
 
-class Settings extends React.PureComponent<IPropsComponents, {}> {
+class Cabinets extends React.PureComponent<IPropsComponents, {}> {
   constructor(props: IPropsComponents) {
     super(props);
   }
@@ -39,30 +39,31 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
   }
 
   public render(): JSX.Element {
-    const {isAuthenticated} = this.props;
+    const { newCabinetVisible } = this.props;
     return (
-        <DashboardContainer menu={<SettingsMenu/>} title={<Title>Настройки приложения</Title>}>
-          <Switch>
-            <Route
-                exact={true}
-                path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`}
-                component={MainSettings}
-            />
-            <Route
-                path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`}
-                component={NotificationSettings}
-            />
-          </Switch>
-        </DashboardContainer>
+      <Switch>
+        <Route
+          exact={true}
+          path={`${DashboardRouteNames.Cabinets}${CabinetsRouteNames.Active}`}
+          component={MainCabinets}
+        />
+        {/* <Route
+          path={`${DashboardRouteNames.Cabinets}${CabinetsRouteNames.Old}`}
+          component={OldCabinets}
+        />
+        <Route
+          path={`${DashboardRouteNames.Cabinets}${CabinetsRouteNames.Favorites}`}
+          component={FavoritesCabinets}
+        /> */}
+      </Switch>
     );
   }
 }
 
 const mapStateToProps = (state: State): IStateProps => {
   return {
-    isAuthenticated: isAuthenticated(state),
-    currentUsername: getCurrentUsername(state),
-    currentUserId: getCurrentUserId(state)
+    // newCabinetVisible: isNewCabinetVisible(state)
+    newCabinetVisible: true
   };
 };
 
@@ -70,4 +71,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
   actions: bindActionCreators<any, any>(actions, dispatch)
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(Settings as any));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(Cabinets as any));
