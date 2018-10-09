@@ -10,9 +10,13 @@ import {
 import { State } from '../../../../store/reducers';
 import * as actions from '../../../../store/actions';
 import { withRouter } from 'react-router-dom';
-import { HeadContainer } from '../../../components/head-container';
+import { HeadWrapper } from '../../../components/head-wrapper';
 import { DashboardContainer } from '../../../components/dashboard-container';
 import Button from 'antd/lib/button';
+import {SubPanel} from '../../../components/sub-panel';
+import CabinetsMenu from '../menu';
+import {Panel} from '../../../components/panel';
+import {PanelWrapper} from '../../../components/panel-wrapper';
 
 export interface IStateProps {
   isAuthenticated: boolean;
@@ -38,16 +42,16 @@ class OldCabinets extends React.PureComponent<IPropsComponents, {}> {
   public render(): JSX.Element {
     const {isAuthenticated} = this.props;
     return (
-        <React.Fragment>
-          <HeadContainer mode="right">
-            <Button type="primary">
-              Создать кабинет
-            </Button>
-          </HeadContainer>
-          <DashboardContainer>
-            Контент Настройки уведомлений
-          </DashboardContainer>
-        </React.Fragment>
+        <PanelWrapper>
+            <SubPanel>
+                <CabinetsMenu/>
+            </SubPanel>
+            <Panel>
+                <DashboardContainer>
+                    Старые контент
+                </DashboardContainer>
+            </Panel>
+        </PanelWrapper>
     );
   }
 }

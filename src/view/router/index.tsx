@@ -24,5 +24,6 @@ export const CabinetsRouteNames = {
   Active: '',
   Old: '/old',
   New: '/new',
+  WithId: '/:id',
   Favorites: '/favorites'
 };

@@ -10,7 +10,7 @@ import {
 import { State } from '../../../../store/reducers';
 import * as actions from '../../../../store/actions';
 import { withRouter } from 'react-router-dom';
-import { HeadContainer } from '../../../components/head-container';
+import { HeadWrapper } from '../../../components/head-wrapper';
 import { DashboardContainer } from '../../../components/dashboard-container';
 import { Title } from '../../../components/title';
 
@@ -39,11 +39,11 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
     const {isAuthenticated} = this.props;
     return (
         <React.Fragment>
-          <HeadContainer>
+          <HeadWrapper>
             <Title size="medium">
               Общие настройки
             </Title>
-          </HeadContainer>
+          </HeadWrapper>
           <DashboardContainer>
             Контент Общие настройки
           </DashboardContainer>

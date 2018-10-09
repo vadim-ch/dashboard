@@ -12,7 +12,7 @@ import { Title } from '../../components/title';
 import NotificationSettings from '../settings/notification';
 import { DashboardRouteNames, SettingsRouteNames } from '../../router';
 import MainSettings from '../settings/main';
-import { HeadContainer } from '../../components/head-container';
+import { HeadWrapper } from '../../components/head-wrapper';
 
 const styles = require('./styles.less');
 
@@ -30,11 +30,11 @@ class DashboardHome extends React.PureComponent<IPropsComponents, void> {
   public render(): JSX.Element {
     return (
         <React.Fragment>
-          <HeadContainer>
+          <HeadWrapper>
             <Title>
               Панель приборов
             </Title>
-          </HeadContainer>
+          </HeadWrapper>
           <DashboardContainer>
             Контент
           </DashboardContainer>

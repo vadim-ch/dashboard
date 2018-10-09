@@ -14,6 +14,7 @@ import Dropdown from 'antd/lib/dropdown';
 import Avatar from 'antd/lib/avatar';
 import Icon from 'antd/lib/icon';
 import {dashboardRoutes} from '../../router/routes';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const styles = require('./styles.less');
 

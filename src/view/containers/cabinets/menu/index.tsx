@@ -61,7 +61,6 @@ class CabinetsMenu extends React.PureComponent<IPropsComponents, IState> {
       return item.path === pathname;
     });
     return (
-        <React.Fragment>
           <Menu
               // style={{ width: 256 }}
               defaultSelectedKeys={[`${activeIndex}`]}
@@ -75,7 +74,6 @@ class CabinetsMenu extends React.PureComponent<IPropsComponents, IState> {
                 </Menu.Item>
             ))}
           </Menu>
-        </React.Fragment>
     );
   }
 }

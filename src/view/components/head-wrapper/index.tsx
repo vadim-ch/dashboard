@@ -6,7 +6,7 @@ interface IProps {
   mode?: 'left' | 'right' | 'justify';
 }
 
-export class HeadContainer extends React.PureComponent<IProps, any> {
+export class HeadWrapper extends React.PureComponent<IProps, any> {
   public render(): JSX.Element {
     const {mode = 'left'} = this.props;
     return (
