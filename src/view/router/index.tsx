@@ -17,22 +17,3 @@ export const SettingsRouteNames = {
   Main: '',
   Notifications: '/notifications'
 };
-
-// export const routes = [
-//   {
-//     path: RouteNames.Home,
-//     main: Home
-//   },
-//   {
-//     path: RouteNames.Login,
-//     main: HowItWork
-//   },
-//   {
-//     path: RouteNames.Register,
-//     main: Pricing
-//   },
-//   {
-//     path: RouteNames.Settings,
-//     main: Contacts
-//   }
-// ];

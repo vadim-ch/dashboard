@@ -11,6 +11,11 @@ import { State } from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom';
 import { DashboardRouteNames, SettingsRouteNames } from '../../router';
+import { DashboardContainer } from '../../components/dashboard-container';
+import SettingsMenu from '../settings-menu';
+import { Title } from '../../components/title';
+import MainSettings from './main';
+import NotificationSettings from './notification';
 
 export interface IStateProps {
   isAuthenticated: boolean;
@@ -22,20 +27,11 @@ export interface IDispatchProps {
   actions: any;
 }
 
-interface IState {
-  firstName: string;
-  lastName: string;
-}
-
 type IPropsComponents = IStateProps & IDispatchProps;
 
-class Settings extends React.PureComponent<IPropsComponents, IState> {
+class Settings extends React.PureComponent<IPropsComponents, {}> {
   constructor(props: IPropsComponents) {
     super(props);
-    this.state = {
-      firstName: '',
-      lastName: ''
-    };
   }
 
   public componentWillReceiveProps(props: IPropsComponents): void {
@@ -44,38 +40,21 @@ class Settings extends React.PureComponent<IPropsComponents, IState> {
 
   public render(): JSX.Element {
     const {isAuthenticated} = this.props;
-    const {firstName, lastName} = this.state;
     return (
-        <React.Fragment>
-          <h1>Настройки приложения</h1>
+        <DashboardContainer menu={<SettingsMenu/>} title={<Title>Настройки приложения</Title>}>
           <Switch>
             <Route
                 exact={true}
                 path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`}
-                component={() => 'Общие настройки1'}
+                component={MainSettings}
             />
             <Route
                 path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`}
-                component={() => 'Настройки уведомлений'}
+                component={NotificationSettings}
             />
           </Switch>
-        </React.Fragment>
+        </DashboardContainer>
     );
-  }
-
-  private changeFirstName = (event: any): void => {
-    this.setState({firstName: event.target.value});
-  }
-
-  private changeLastName = (event: any): void => {
-    this.setState({lastName: event.target.value});
-  }
-
-  private submitForm = (event: any): void => {
-    event.preventDefault();
-    const {firstName, lastName} = this.state;
-    const {currentUserId} = this.props;
-    this.props.actions.updateUser(currentUserId, firstName, lastName);
   }
 }
 

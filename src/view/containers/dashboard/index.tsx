@@ -13,6 +13,12 @@ import { GetAllCabinetsResponseType } from '../../../api/requests/cabinet/get-al
 import { Link } from 'react-router-dom';
 import Sidebar from '../sidebar';
 import { dashboardRoutes } from '../../router/routes';
+import Login from '../login';
+import Home from '../home';
+import { DashboardRouteNames, RouteNames } from '../../router';
+import Register from '../register';
+import Search from '../search';
+import DashboardHome from '../dashboard-home';
 
 const styles = require('./styles.less');
 
@@ -43,40 +49,18 @@ class Dashboard extends React.PureComponent<IPropsComponents, void> {
               <Sidebar/>
             </aside>
             <section className={styles.content}>
-              <Row>
-                {dashboardRoutes.map((route, index) => (
-                    <Route
-                        key={index}
-                        path={route.path}
-                        exact={route.exact}
-                        component={route.title}
-                    />
-                ))}
-              </Row>
-              <Row>
-                <Col xs={24} sm={24} md={6} lg={5} xl={5} xxl={4}>
-                  {dashboardRoutes.map((route, index) => (
+              <Switch>
+                {
+                  dashboardRoutes.map((route, index) => (
                       <Route
                           key={index}
                           path={route.path}
                           exact={route.exact}
-                          component={route.menu}
+                          component={route.main}
                       />
-                  ))}
-                </Col>
-                <Col xs={0} sm={0} md={18} lg={19} xl={19} xxl={20}>
-                  <Switch>
-                    {dashboardRoutes.map((route, index) => (
-                        <Route
-                            key={index}
-                            path={route.path}
-                            exact={route.exact}
-                            component={route.main}
-                        />
-                    ))}
-                  </Switch>
-                </Col>
-              </Row>
+                  ))
+                }
+              </Switch>
             </section>
           </main>
         </React.Fragment>
