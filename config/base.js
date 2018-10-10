@@ -55,7 +55,12 @@ module.exports = function (env, __dirname) {
           test: /\.ts(x?)$/,
           exclude: path.resolve(__dirname, 'node_modules'),
           include: path.resolve(__dirname, 'src'),
-          use: ['ts-loader']
+          use: {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
         },
 
         {

@@ -13,7 +13,6 @@ module.exports = function(env, __dirname) {
         'redux',
         'react-dom',
         'react-redux',
-        'classnames',
         'redux-logger',
       ],
       index: path.resolve('src', 'index.tsx')
