@@ -32,6 +32,6 @@ export class Register extends ApiRequest<RegisterResponseType>  {
   // }
 
   public get request(): Promise<RegisterResponseType> {
-    return promiseMock(mockData, false) as any;
+    return promiseMock(false) as any;
   }
 }

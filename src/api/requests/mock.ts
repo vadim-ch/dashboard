@@ -1,7 +1,8 @@
-export const promiseMock = (data: any, checkAuth: boolean = true) => {
+export const promiseMock = (checkAuth: boolean = true) => {
     const token = window.localStorage.getItem('at');
 
     return new Promise((resolve, reject) => {
+        const data = JSON.parse(localStorage.getItem('mock'));
         if (!checkAuth) {
             resolve(data);
         } else {
@@ -22,3 +23,5 @@ export const mockData = {
     accessToken: 'ads',
     refreshToken: 'asd'
 };
+
+localStorage.setItem('mock', JSON.stringify(mockData));

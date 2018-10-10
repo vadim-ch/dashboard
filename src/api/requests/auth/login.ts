@@ -31,6 +31,6 @@ export class Login extends ApiRequest<LoginResponseType> {
   // }
 
   public get request(): Promise<LoginResponseType> {
-    return promiseMock(mockData, false) as any;
+    return promiseMock(false) as any;
   }
 }

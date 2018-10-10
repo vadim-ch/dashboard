@@ -12,6 +12,6 @@ export class Logout extends ApiRequest<LogoutResponseType> {
   }
 
   public get request(): Promise<LogoutResponseType> {
-    return promiseMock({}) as any;
+    return promiseMock() as any;
   }
 }

@@ -30,6 +30,6 @@ export class RefreshToken extends ApiRequest<RefreshTokenResponseType> {
   // }
 
   public get request(): Promise<RefreshTokenResponseType> {
-    return promiseMock(mockData) as any;
+    return promiseMock() as any;
   }
 }

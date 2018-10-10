@@ -14,6 +14,8 @@ export interface UpdateUserResponseType extends UserResponseType {
 export class UpdateUser extends ApiRequest<UpdateUserResponseType> {
   constructor(props: UpdateUserType) {
     super(ApiRequestType.Put, `${UserPath.Put}/${props.id}`, {firstName: props.firstName, lastName: props.lastName});
+    const data = JSON.parse(localStorage.getItem('mock'));
+    localStorage.setItem('mock', JSON.stringify({ ...data, firstName: props.firstName, lastName: props.lastName}));
   }
 
   // public get request(): Promise<UpdateUserResponseType> {
@@ -29,6 +31,6 @@ export class UpdateUser extends ApiRequest<UpdateUserResponseType> {
   // }
 
   public get request(): Promise<UpdateUserResponseType> {
-    return promiseMock(mockData) as any;
+    return promiseMock() as any;
   }
 }

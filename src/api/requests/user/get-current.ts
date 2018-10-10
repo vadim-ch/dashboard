@@ -21,6 +21,6 @@ export class GetCurrentUser extends ApiRequest<GetCurrentUserResponseType> {
   //   });
   // }
   public get request(): Promise<GetCurrentUserResponseType> {
-    return promiseMock(mockData) as any;
+    return promiseMock() as any;
   }
 }
