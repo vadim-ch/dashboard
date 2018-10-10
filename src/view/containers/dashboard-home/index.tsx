@@ -13,6 +13,7 @@ import NotificationSettings from '../settings/notification';
 import { DashboardRouteNames, SettingsRouteNames } from '../../router';
 import MainSettings from '../settings/main';
 import { HeadWrapper } from '../../components/head-wrapper';
+import { dashboardRoutes } from '../../router/routes';
 
 const styles = require('./styles.less');
 
@@ -29,16 +30,27 @@ type IPropsComponents = IStateProps & IDispatchProps;
 class DashboardHome extends React.PureComponent<IPropsComponents, void> {
   public render(): JSX.Element {
     return (
-        <React.Fragment>
-          <HeadWrapper>
+      <React.Fragment>
+        <DashboardContainer>
+          <HeadWrapper mode="left">
             <Title>
-              Панель приборов
+              <Switch>
+                {
+                  dashboardRoutes.map((route, index) => (
+                    <Route
+                      key={index}
+                      path={route.path}
+                      exact={route.exact}
+                      component={() => route.title}
+                    />
+                  ))
+                }
+              </Switch>
             </Title>
           </HeadWrapper>
-          <DashboardContainer>
-            Контент
-          </DashboardContainer>
-        </React.Fragment>
+        </DashboardContainer>
+
+      </React.Fragment>
     );
   }
 }
