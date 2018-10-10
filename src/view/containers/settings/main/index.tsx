@@ -5,7 +5,8 @@ import { bindActionCreators, Dispatch } from 'redux';
 import {
   getCurrentUserId,
   getCurrentUsername,
-  isAuthenticated
+  isAuthenticated,
+  getAccount
 } from '../../../../store/reducers/domain/account/selectors';
 import { State } from '../../../../store/reducers';
 import * as actions from '../../../../store/actions';
@@ -28,8 +29,9 @@ const FormItem = Form.Item;
 
 export interface IStateProps {
   isAuthenticated: boolean;
-  currentUserId: string;
-  currentUsername: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface IDispatchProps {
@@ -72,14 +74,16 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
           <DashboardContainer>
             Основные настройки
             <br/>
-            <Form layout="vertical" style={{'maxWidth': '600px'}}>
+            <br/>
+            <Form layout="vertical" style={{ 'maxWidth': '600px' }} onSubmit={this.handleSubmit}>
               <FormItem {...formItemLayout} label="Имя">
                 {getFieldDecorator('firstName', {
                   rules: [{ message: 'Please input the title of collection!' }]
                 })(
-                  <Input defaultValue="mysite"/>
+                  <Input/>
                 )}
               </FormItem>
+
               <FormItem {...formItemLayout} label="Фамилия">
                 {getFieldDecorator('lastName')(<Input type="textarea" />)}
               </FormItem>
@@ -102,15 +106,38 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
       </PanelWrapper>
     );
   }
+
+  private handleSubmit = (e): void => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        this.props.actions.updateUser(this.props.userId, values.firstName, values.lastName);
+      }
+    });
+  }
 }
 
-const WrappedMainSettings = Form.create<IPropsComponents>()(MainSettings);
+const WrappedMainSettings = Form.create<IPropsComponents>({
+  mapPropsToFields(props) {
+    return {
+      firstName: Form.createFormField({
+        value: props.firstName
+      }),
+      lastName: Form.createFormField({
+        value: props.lastName
+      })
+    };
+  }
+})(MainSettings);
 
 const mapStateToProps = (state: State): IStateProps => {
+  const account = getAccount(state);
   return {
     isAuthenticated:  isAuthenticated(state),
-    currentUsername: getCurrentUsername(state),
-    currentUserId: getCurrentUserId(state)
+    userId: account.id,
+    firstName: account.firstName,
+    lastName: account.lastName
   };
 };
 
