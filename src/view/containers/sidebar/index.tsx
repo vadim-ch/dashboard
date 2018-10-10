@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Route, Switch, Redirect, matchPath} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-import {isAuthenticated} from '../../../store/reducers/domain/account/selectors';
+import {isAuthenticated, getCurrentUserChars} from '../../../store/reducers/domain/account/selectors';
 import {State} from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
 import {withRouter} from 'react-router-dom';
@@ -14,14 +14,13 @@ import Dropdown from 'antd/lib/dropdown';
 import Avatar from 'antd/lib/avatar';
 import Icon from 'antd/lib/icon';
 import {dashboardRoutes} from '../../router/routes';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const styles = require('./styles.less');
 
 export interface IStateProps {
   isAuthenticated: boolean;
   cabinetsPending: boolean;
-  cabinets: GetAllCabinetsResponseType;
+  currentUsername: string;
 }
 
 export interface IDispatchProps {
@@ -32,7 +31,7 @@ type IPropsComponents = IStateProps & IDispatchProps;
 
 class Sidebar extends React.PureComponent<IPropsComponents, void> {
   public render(): JSX.Element {
-    const {cabinetsPending, cabinets} = this.props;
+    const { cabinetsPending, currentUsername} = this.props;
     // const { from } = this.props['location'].state || { from: { pathname: '/' } };
     // if (this.props.isAuthenticated) {
     //   return <Redirect to={from} />;
@@ -40,8 +39,7 @@ class Sidebar extends React.PureComponent<IPropsComponents, void> {
     const {pathname} = this.props['location'];
     const menu = (
         <Menu>
-          <Menu.Item key="logout" onClick={() => {
-          }}>
+          <Menu.Item key="logout" onClick={() => this.props.actions.logout()}>
             <Icon type="logout"/>Выйти
           </Menu.Item>
         </Menu>
@@ -50,8 +48,7 @@ class Sidebar extends React.PureComponent<IPropsComponents, void> {
         <React.Fragment>
           <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
             <Avatar size="large" style={{cursor: 'pointer'}}>
-              {/*{currentUser}*/}
-              11
+            {currentUsername}
             </Avatar>
           </Dropdown>
           <ul className={styles.menu}>
@@ -79,8 +76,8 @@ class Sidebar extends React.PureComponent<IPropsComponents, void> {
 const mapStateToProps = (state: State): IStateProps => {
   return {
     isAuthenticated: isAuthenticated(state),
-    cabinetsPending: isCabinetsPending(state),
-    cabinets: getCabinets(state).list
+    currentUsername: getCurrentUserChars(state),
+    cabinetsPending: isCabinetsPending(state)
   };
 };
 

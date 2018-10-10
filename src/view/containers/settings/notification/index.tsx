@@ -13,7 +13,10 @@ import { withRouter } from 'react-router-dom';
 import { HeadWrapper } from '../../../components/head-wrapper';
 import { DashboardContainer } from '../../../components/dashboard-container';
 import { Title } from '../../../components/title';
-
+import { Panel } from '../../../components/panel';
+import { SubPanel } from '../../../components/sub-panel';
+import { PanelWrapper } from '../../../components/panel-wrapper';
+import SettingsMenu from '../settings-menu';
 export interface IStateProps {
   isAuthenticated: boolean;
   currentUserId: string;
@@ -38,16 +41,23 @@ class NotificationSettings extends React.PureComponent<IPropsComponents, {}> {
   public render(): JSX.Element {
     const {isAuthenticated} = this.props;
     return (
-        <React.Fragment>
-          <HeadWrapper>
-            <Title size="medium">
-              Настройки уведомлений
-            </Title>
-          </HeadWrapper>
+      <PanelWrapper>
+        <SubPanel>
+          <SettingsMenu />
+        </SubPanel>
+        <Panel>
           <DashboardContainer>
-            Контент Настройки уведомлений
+            Настройки уведомлений
+            {/*<DashboardContainer>*/}
+            {/*{cabinets.map(cabinet => (*/}
+            {/*<div>*/}
+            {/*{cabinet.address}*/}
+            {/*</div>*/}
+            {/*))}*/}
+            {/*</DashboardContainer>*/}
           </DashboardContainer>
-        </React.Fragment>
+        </Panel>
+      </PanelWrapper>
     );
   }
 }
