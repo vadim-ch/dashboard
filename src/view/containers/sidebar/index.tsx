@@ -40,8 +40,7 @@ class Sidebar extends React.PureComponent<IPropsComponents, void> {
     const {pathname} = this.props['location'];
     const menu = (
         <Menu>
-          <Menu.Item key="logout" onClick={() => {
-          }}>
+          <Menu.Item key="logout" onClick={() => this.props.actions.logout()}>
             <Icon type="logout"/>Выйти
           </Menu.Item>
         </Menu>

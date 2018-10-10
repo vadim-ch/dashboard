@@ -1,6 +1,7 @@
 import { ApiRequest, ApiRequestType } from '../index';
 import * as jwtDecode from 'jwt-decode';
 import { AuthPath, AuthResponseType } from './types';
+import {promiseMock, mockData} from '../mock';
 
 export type LoginType = {
   email: string;
@@ -14,18 +15,22 @@ export class Login extends ApiRequest<LoginResponseType> {
     super(ApiRequestType.Post, AuthPath.Login, props);
   }
 
+  // public get request(): Promise<LoginResponseType> {
+  //   return super.request.then(response => {
+  //     const {accessToken, refreshToken} = response;
+  //     const {sub: id, email, firstName, lastName} = jwtDecode(accessToken);
+  //     return {
+  //       id,
+  //       email,
+  //       firstName,
+  //       lastName,
+  //       accessToken,
+  //       refreshToken
+  //     };
+  //   });
+  // }
+
   public get request(): Promise<LoginResponseType> {
-    return super.request.then(response => {
-      const {accessToken, refreshToken} = response;
-      const {sub: id, email, firstName, lastName} = jwtDecode(accessToken);
-      return {
-        id,
-        email,
-        firstName,
-        lastName,
-        accessToken,
-        refreshToken
-      };
-    });
+    return promiseMock(mockData, false) as any;
   }
 }
