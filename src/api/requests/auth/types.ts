@@ -8,8 +8,8 @@ export type AuthResponseType = {
 };
 
 export const AuthPath = {
-  Login: 'experts/login',
-  Logout: 'experts/logout',
-  Register: 'experts/register',
-  RefreshToken: 'experts/refresh-token'
+  Login: 'login',
+  Logout: 'logout',
+  Register: 'register/experts',
+  RefreshToken: 'refresh-token'
 };

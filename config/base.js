@@ -48,7 +48,9 @@ module.exports = function (env, __dirname) {
           loader: 'tslint-loader',
           options: {
             emitErrors: true,
-            fix: true
+            transpileOnly: true,
+            experimentalWatchApi: true,
+            // fix: true
           }
         },
         {

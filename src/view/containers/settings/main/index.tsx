@@ -23,6 +23,7 @@ import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
 import Checkbox from 'antd/lib/checkbox';
+import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 
 const FormItem = Form.Item;
@@ -87,16 +88,20 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
               <FormItem {...formItemLayout} label="Фамилия">
                 {getFieldDecorator('lastName')(<Input type="textarea" />)}
               </FormItem>
-              {/* <FormItem className="collection-create-form_last-form-item">
-                {getFieldDecorator('modifier', {
-                  initialValue: 'public'
+
+              <FormItem {...formItemLayout} label="Отчество">
+                {getFieldDecorator('middleName')(<Input type="textarea" />)}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator('gender', {
+                  initialValue: ''
                 })(
                   <Radio.Group>
-                    <Radio value="public">Public</Radio>
-                    <Radio value="private">Private</Radio>
+                    <Radio value="male">Мужской</Radio>
+                    <Radio value="female">Женский</Radio>
                   </Radio.Group>
                 )}
-              </FormItem> */}
+              </FormItem>
               <FormItem>
                 <Button type="primary" htmlType="submit">Сохранить</Button>
               </FormItem>
