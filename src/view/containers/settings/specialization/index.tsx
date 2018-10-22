@@ -21,11 +21,11 @@ import { PanelWrapper } from '../../../components/panel-wrapper';
 import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
+import Select from 'antd/lib/select';
 import DatePicker from 'antd/lib/date-picker';
 import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import moment from 'moment';
-import {AvatarUploader} from "../../../components/image-uploader";
 
 const styles = require('./styles.less');
 
@@ -48,9 +48,8 @@ type IPropsComponents = IStateProps & IDispatchProps & {
   form: WrappedFormUtils;
 };
 
-const dateFormat = 'D MMMM YYYY';
 
-class MainSettings extends React.PureComponent<IPropsComponents, {}> {
+class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
   constructor(props: IPropsComponents) {
     super(props);
   }
@@ -79,53 +78,12 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
         </SubPanel>
         <Panel>
           <DashboardContainer>
-            Личная информация
+              Личная информация
             <br/>
             <br/>
             <Form layout="vertical" style={{ 'maxWidth': '600px' }} onSubmit={this.handleSubmit}>
-              <AvatarUploader/>
               <FormItem {...formItemLayout} label="Имя">
-                {getFieldDecorator('firstName', {
-                  rules: [{ message: 'Please input the title of collection!' }]
-                })(
-                  <Input/>
-                )}
-              </FormItem>
-
-              <FormItem {...formItemLayout} label="Фамилия">
-                {getFieldDecorator('lastName')(<Input type="textarea" />)}
-              </FormItem>
-
-              <FormItem {...formItemLayout} label="Отчество">
-                {getFieldDecorator('middleName')(<Input type="textarea" />)}
-              </FormItem>
-              <FormItem {...formItemLayout} label="Пол">
-                {getFieldDecorator('gender', {
-                  initialValue: ''
-                })(
-                  <Radio.Group>
-                    <Radio value="male">Мужской</Radio>
-                    <Radio value="female">Женский</Radio>
-                  </Radio.Group>
-                )}
-              </FormItem>
-              <FormItem {...formItemLayout} label="Дата рождения">
-                {getFieldDecorator('birthday', {
-                  initialValue: moment('1980/01/01', dateFormat)
-                })(<DatePicker format={dateFormat} />)}
-              </FormItem>
-              <FormItem {...formItemLayout} label="Местоположение">
-                {getFieldDecorator('location', {
-                  initialValue: ''
-                })(<Input/>)}
-              </FormItem>
-              <FormItem {...formItemLayout} label="О себе">
-                {getFieldDecorator('about', {
-                  initialValue: ''
-                })(<TextArea className={styles.about} autosize />)}
-              </FormItem>
-              <FormItem>
-                <Button type="primary" htmlType="submit">Сохранить</Button>
+                {getFieldDecorator('firstName', {})(<Input/>)}
               </FormItem>
             </Form>
           </DashboardContainer>
@@ -145,7 +103,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
   }
 }
 
-const WrappedMainSettings = Form.create<IPropsComponents>({
+const WrappedSpecializationSettings = Form.create<IPropsComponents>({
   mapPropsToFields(props) {
     return {
       firstName: Form.createFormField({
@@ -156,7 +114,7 @@ const WrappedMainSettings = Form.create<IPropsComponents>({
       })
     };
   }
-})(MainSettings);
+})(SpecializationSettings);
 
 const mapStateToProps = (state: State): IStateProps => {
   const account = getAccount(state);
@@ -172,4 +130,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
   actions:  bindActionCreators<any,  any>(actions, dispatch)
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(WrappedMainSettings as any));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(WrappedSpecializationSettings as any));

@@ -17,7 +17,8 @@ export const DashboardRouteNames = {
 
 export const SettingsRouteNames = {
   Main: '',
-  Notifications: '/notifications'
+  Notifications: '/notifications',
+  Specialization: '/specialization'
 };
 
 export const CabinetsRouteNames = {

@@ -17,6 +17,7 @@ import SettingsMenu from './settings-menu';
 import { Title } from '../../components/title';
 import MainSettings from './main';
 import NotificationSettings from './notification';
+import SpecializationSettings from './specialization';
 import { HeadWrapper } from '../../components/head-wrapper';
 import { dashboardRoutes } from '../../router/routes';
 export interface IStateProps {
@@ -72,6 +73,10 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
           <Route
             path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`}
             component={NotificationSettings}
+          />
+          <Route
+            path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Specialization}`}
+            component={SpecializationSettings}
           />
         </Switch>
       </React.Fragment>

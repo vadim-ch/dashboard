@@ -36,12 +36,12 @@ type IPropsComponents = IStateProps & IDispatchProps;
 
 const menuList = [
   {
-    title: `Основные`,
+    title: `Личные данные`,
     path: `${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`
   },
   {
-    title: `Уведомления`,
-    path: `${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`
+    title: `Специализация`,
+    path: `${DashboardRouteNames.Settings}${SettingsRouteNames.Specialization}`
   }
 ];
 
