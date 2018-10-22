@@ -22,11 +22,16 @@ import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
-import Checkbox from 'antd/lib/checkbox';
+import DatePicker from 'antd/lib/date-picker';
 import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
+import moment from 'moment';
+
+const styles = require('./styles.less');
 
 const FormItem = Form.Item;
+const { MonthPicker, RangePicker } = DatePicker;
+const { TextArea } = Input;
 
 export interface IStateProps {
   isAuthenticated: boolean;
@@ -42,6 +47,8 @@ export interface IDispatchProps {
 type IPropsComponents = IStateProps & IDispatchProps & {
   form: WrappedFormUtils;
 };
+
+const dateFormat = 'D MMMM YYYY';
 
 class MainSettings extends React.PureComponent<IPropsComponents, {}> {
   constructor(props: IPropsComponents) {
@@ -66,14 +73,13 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
     const { isAuthenticated, form} = this.props;
     const { getFieldDecorator } = form;
     return (
-
       <PanelWrapper>
         <SubPanel>
           <SettingsMenu />
         </SubPanel>
         <Panel>
           <DashboardContainer>
-            Основные настройки
+            Личная информация
             <br/>
             <br/>
             <Form layout="vertical" style={{ 'maxWidth': '600px' }} onSubmit={this.handleSubmit}>
@@ -92,7 +98,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
               <FormItem {...formItemLayout} label="Отчество">
                 {getFieldDecorator('middleName')(<Input type="textarea" />)}
               </FormItem>
-              <FormItem>
+              <FormItem {...formItemLayout} label="Пол">
                 {getFieldDecorator('gender', {
                   initialValue: ''
                 })(
@@ -101,6 +107,21 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
                     <Radio value="female">Женский</Radio>
                   </Radio.Group>
                 )}
+              </FormItem>
+              <FormItem {...formItemLayout} label="Дата рождения">
+                {getFieldDecorator('birthday', {
+                  initialValue: moment('1980/01/01', dateFormat)
+                })(<DatePicker format={dateFormat} />)}
+              </FormItem>
+              <FormItem {...formItemLayout} label="Местоположение">
+                {getFieldDecorator('location', {
+                  initialValue: ''
+                })(<Input/>)}
+              </FormItem>
+              <FormItem {...formItemLayout} label="О себе">
+                {getFieldDecorator('about', {
+                  initialValue: ''
+                })(<TextArea className={styles.about} autosize />)}
               </FormItem>
               <FormItem>
                 <Button type="primary" htmlType="submit">Сохранить</Button>
@@ -116,7 +137,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form: ', values, values.birthday.format('YYYY-MM-DD'));
         this.props.actions.updateUser(this.props.userId, values.firstName, values.lastName);
       }
     });

@@ -8,7 +8,8 @@ export const getAccount = (state: State): AccountState => state.domainState.acco
 export const isAuthenticated = createSelector(
     [getAccount],
     (account: AccountState): boolean => {
-      return Boolean(account.email);
+      // return Boolean(account.email);
+      return true;
     }
 );
 

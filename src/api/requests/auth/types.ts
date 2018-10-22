@@ -10,6 +10,6 @@ export type AuthResponseType = {
 export const AuthPath = {
   Login: 'login',
   Logout: 'logout',
-  Register: 'register/experts',
+  Register: 'register/expert',
   RefreshToken: 'refresh-token'
 };
