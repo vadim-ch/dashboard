@@ -12,6 +12,7 @@ const initialState = {
   id: '',
   firstName: '',
   lastName: '',
+  avatar: '',
   email: '',
   accessToken: '',
   refreshToken: '',
@@ -23,6 +24,7 @@ export interface AccountState extends RequestState {
   id: string;
   firstName: string;
   lastName: string;
+  avatar: string;
   email: string;
   accessToken: string;
   refreshToken: string;

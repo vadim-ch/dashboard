@@ -13,10 +13,7 @@ export class GetCurrentUser extends ApiRequest<GetCurrentUserResponseType> {
     return super.request.then(response => {
       const {id, firstName, lastName, email} = response;
       return {
-        id,
-        email,
-        firstName,
-        lastName
+        ...response
       };
     });
   }

@@ -6,7 +6,7 @@ import {
   getCurrentUserId,
   getCurrentUsername,
   isAuthenticated,
-  getAccount
+  getAccount, getAvatarUrl
 } from '../../../../store/reducers/domain/account/selectors';
 import { State } from '../../../../store/reducers';
 import * as actions from '../../../../store/actions';
@@ -25,7 +25,7 @@ import DatePicker from 'antd/lib/date-picker';
 import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import moment from 'moment';
-import {AvatarUploader} from "../../../components/image-uploader";
+import {AvatarUploader} from '../../../components/image-uploader';
 
 const styles = require('./styles.less');
 
@@ -38,6 +38,7 @@ export interface IStateProps {
   userId: string;
   firstName: string;
   lastName: string;
+  avatar: string;
 }
 
 export interface IDispatchProps {
@@ -48,15 +49,15 @@ type IPropsComponents = IStateProps & IDispatchProps & {
   form: WrappedFormUtils;
 };
 
+interface IState {
+  file: File;
+}
+
 const dateFormat = 'D MMMM YYYY';
 
-class MainSettings extends React.PureComponent<IPropsComponents, {}> {
+class MainSettings extends React.PureComponent<IPropsComponents, IState> {
   constructor(props: IPropsComponents) {
     super(props);
-  }
-
-  public componentWillReceiveProps(props: IPropsComponents): void {
-    // this.setState({firstName: props.currentUsername});
   }
 
   public render(): JSX.Element {
@@ -70,7 +71,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
         sm: { span: 16 }
       }
     };
-    const { isAuthenticated, form} = this.props;
+    const { avatar, form } = this.props;
     const { getFieldDecorator } = form;
     return (
       <PanelWrapper>
@@ -83,13 +84,10 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
             <br/>
             <br/>
             <Form layout="vertical" style={{ 'maxWidth': '600px' }} onSubmit={this.handleSubmit}>
-              <AvatarUploader/>
+
+              <AvatarUploader onUploaded={this.onUploadedFile} initialImageUrl={avatar}/>
               <FormItem {...formItemLayout} label="Имя">
-                {getFieldDecorator('firstName', {
-                  rules: [{ message: 'Please input the title of collection!' }]
-                })(
-                  <Input/>
-                )}
+                {getFieldDecorator('firstName', {})(<Input/>)}
               </FormItem>
 
               <FormItem {...formItemLayout} label="Фамилия">
@@ -134,19 +132,24 @@ class MainSettings extends React.PureComponent<IPropsComponents, {}> {
     );
   }
 
-  private handleSubmit = (e): void => {
+  private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values, values.birthday.format('YYYY-MM-DD'));
-        this.props.actions.updateUser(this.props.userId, values.firstName, values.lastName);
+        console.error(this.state.file);
+        this.props.actions.updateUser(this.props.userId, values.firstName, values.lastName, this.state.file);
       }
     });
+  }
+
+  private onUploadedFile = (file: File) => {
+    this.setState({file});
   }
 }
 
 const WrappedMainSettings = Form.create<IPropsComponents>({
-  mapPropsToFields(props) {
+  mapPropsToFields: (props: IStateProps) => {
     return {
       firstName: Form.createFormField({
         value: props.firstName
@@ -164,7 +167,8 @@ const mapStateToProps = (state: State): IStateProps => {
     isAuthenticated:  isAuthenticated(state),
     userId: account.id,
     firstName: account.firstName,
-    lastName: account.lastName
+    lastName: account.lastName,
+    avatar: getAvatarUrl(state)
   };
 };
 

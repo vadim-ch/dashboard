@@ -17,10 +17,7 @@ export class GetUser extends ApiRequest<GetUserResponseType> {
     return super.request.then(response => {
       const {id, firstName, lastName, email} = response;
       return {
-        id,
-        email,
-        firstName,
-        lastName
+        ...response
       };
     });
   }

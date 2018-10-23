@@ -13,9 +13,10 @@ export interface UpdateUserAction extends RequestAction<UpdateUserResponseType> 
 export const updateUser: ActionCreator<UpdateUserAction> = (
     id: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    avatar: any
 ): UpdateUserAction => {
-  const request = new UpdateUser({id, firstName, lastName});
+  const request = new UpdateUser({id, firstName, lastName, avatar});
   return {
     type: UPDATE_USER,
     request
