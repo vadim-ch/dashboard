@@ -71,23 +71,23 @@ export function account(
       }
       return state;
     }
-    case START_APP: {
-      const {accessToken, refreshToken} = action.payload;
-      return {
-        ...state,
-        accessToken,
-        refreshToken
-      };
-    }
-    case LOGOUT: {
-      if (action.status === RequestStatus.Complete) {
-        return {
-          ...state,
-          ...initialState
-        };
-      }
-      return state;
-    }
+    // case START_APP: {
+    //   const {accessToken, refreshToken} = action.payload;
+    //   return {
+    //     ...state,
+    //     accessToken,
+    //     refreshToken
+    //   };
+    // }
+    // case LOGOUT: {
+    //   if (action.status === RequestStatus.Complete) {
+    //     return {
+    //       ...state,
+    //       ...initialState
+    //     };
+    //   }
+    //   return state;
+    // }
     default:
       return state;
   }

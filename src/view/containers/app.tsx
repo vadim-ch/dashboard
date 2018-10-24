@@ -13,7 +13,6 @@ import Home from './home';
 import Login from './login';
 import Register from './register';
 import Search from './search';
-import Settings from './settings';
 import Dashboard from './dashboard';
 import { isAppLoaded } from '../../store/reducers/application/ui-state/selectors';
 
@@ -22,7 +21,6 @@ import { Spin } from 'antd';
 import { RouteNames } from '../router';
 import { Footer } from '../components/footer';
 import { dashboardRoutes } from '../router/routes';
-import { updateUser } from '../../store/actions';
 
 export interface IStateProps {
   isAuthenticated: boolean;
