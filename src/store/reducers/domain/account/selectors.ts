@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { State } from '../../index';
 import { AccountState } from './index';
 import { RequestErrors, RequestStatus } from '../../../../api/types';
-import { API_URL } from '../../../../api/requests';
+import { STORAGE_URL } from '../../../../api/requests';
 
 export const getAccount = (state: State): AccountState => state.domainState.account;
 
@@ -52,6 +52,6 @@ export const getCurrentUserId = createSelector(
 export const getAvatarUrl = createSelector(
     [getAccount],
     (account: AccountState): string => {
-      return `${API_URL}/static/${account.avatar}`;
+      return `${STORAGE_URL}/avatars/${account.avatar}`;
     }
 );

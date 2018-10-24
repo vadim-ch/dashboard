@@ -2,10 +2,10 @@ import { ApiRequest, ApiRequestType } from '../index';
 import { UserPath, UserResponseType } from './types';
 
 export type UpdateUserType = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  avatar: string;
+  id?: string;
+  firstName?: string;
+  lastName?: string;
+  avatar?: File;
 };
 
 export interface UpdateUserResponseType extends UserResponseType {

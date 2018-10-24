@@ -1,6 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosPromise} from 'axios';
 
 export const API_URL = 'http://localhost:3000/api';
+export const STORAGE_URL = 'http://localhost:3001/';
 
 export const ApiRequestType = {
   Post: 'post',

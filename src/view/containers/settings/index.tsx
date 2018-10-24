@@ -33,6 +33,7 @@ export interface IDispatchProps {
 type IPropsComponents = IStateProps & IDispatchProps;
 
 class Settings extends React.PureComponent<IPropsComponents, {}> {
+  private formRef: any;
   constructor(props: IPropsComponents) {
     super(props);
   }
@@ -46,7 +47,7 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
     return (
       <React.Fragment>
         <DashboardContainer>
-          <HeadWrapper mode="left">
+          <HeadWrapper mode="justify">
             <Title>
               <Switch>
                 {
@@ -61,6 +62,9 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
                 }
               </Switch>
             </Title>
+            <Button type="primary" onClick={() => this.formRef.submitForm()}>
+              Сохранить
+            </Button>
           </HeadWrapper>
         </DashboardContainer>
 
@@ -68,7 +72,7 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
           <Route
             exact={true}
             path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`}
-            component={MainSettings}
+            component={props => <MainSettings {...props} wrappedComponentRef={this.saveFormRef}/>}
           />
           <Route
             path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`}
@@ -81,6 +85,10 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
         </Switch>
       </React.Fragment>
     );
+  }
+
+  private saveFormRef = (formRef: any) => {
+    this.formRef = formRef;
   }
 }
 

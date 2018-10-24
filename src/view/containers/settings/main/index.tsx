@@ -84,7 +84,6 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
             <br/>
             <br/>
             <Form layout="vertical" style={{ 'maxWidth': '600px' }} onSubmit={this.handleSubmit}>
-
               <AvatarUploader onUploaded={this.onUploadedFile} initialImageUrl={avatar}/>
               <FormItem {...formItemLayout} label="Имя">
                 {getFieldDecorator('firstName', {})(<Input/>)}
@@ -122,9 +121,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
                   initialValue: ''
                 })(<TextArea className={styles.about} autosize />)}
               </FormItem>
-              <FormItem>
-                <Button type="primary" htmlType="submit">Сохранить</Button>
-              </FormItem>
+              <Button style={{display: 'none'}} type="primary" htmlType="submit">Сохранить</Button>
             </Form>
           </DashboardContainer>
         </Panel>
@@ -134,10 +131,13 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
 
   private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault();
+    this.submitForm();
+  }
+
+  private submitForm = (): void => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values, values.birthday.format('YYYY-MM-DD'));
-        console.error(this.state.file);
         this.props.actions.updateUser(this.props.userId, values.firstName, values.lastName, this.state.file);
       }
     });
@@ -176,4 +176,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
   actions:  bindActionCreators<any,  any>(actions, dispatch)
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(WrappedMainSettings as any));
+export default connect(mapStateToProps, mapDispatchToProps as any)(WrappedMainSettings as any);
