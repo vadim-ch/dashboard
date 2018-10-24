@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { ActionCreator, bindActionCreators, Dispatch } from 'redux';
 import {
   getCurrentUserId,
   getCurrentUsername,
@@ -25,13 +25,15 @@ import DatePicker from 'antd/lib/date-picker';
 import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import moment from 'moment';
-import {AvatarUploader} from '../../../components/image-uploader';
+import { AvatarUploader } from '../../../components/image-uploader';
+import { updateUser } from '../../../../store/actions';
+import { UpdateUserAction } from '../../../../store/actions/user/update-user-action';
 
 const styles = require('./styles.less');
 
 const FormItem = Form.Item;
-const { MonthPicker, RangePicker } = DatePicker;
-const { TextArea } = Input;
+const {MonthPicker, RangePicker} = DatePicker;
+const {TextArea} = Input;
 
 export interface IStateProps {
   isAuthenticated: boolean;
@@ -42,7 +44,9 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  actions: any;
+  actions: {
+    updateUser: typeof updateUser;
+  };
 }
 
 type IPropsComponents = IStateProps & IDispatchProps & {
@@ -63,69 +67,69 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
   public render(): JSX.Element {
     const formItemLayout = {
       labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 }
+        xs: {span: 24},
+        sm: {span: 8}
       },
       wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 }
+        xs: {span: 24},
+        sm: {span: 16}
       }
     };
-    const { avatar, form } = this.props;
-    const { getFieldDecorator } = form;
+    const {avatar, form} = this.props;
+    const {getFieldDecorator} = form;
     return (
-      <PanelWrapper>
-        <SubPanel>
-          <SettingsMenu />
-        </SubPanel>
-        <Panel>
-          <DashboardContainer>
-            Личная информация
-            <br/>
-            <br/>
-            <Form layout="vertical" style={{ 'maxWidth': '600px' }} onSubmit={this.handleSubmit}>
-              <AvatarUploader onUploaded={this.onUploadedFile} initialImageUrl={avatar}/>
-              <FormItem {...formItemLayout} label="Имя">
-                {getFieldDecorator('firstName', {})(<Input/>)}
-              </FormItem>
+        <PanelWrapper>
+          <SubPanel>
+            <SettingsMenu/>
+          </SubPanel>
+          <Panel>
+            <DashboardContainer>
+              Личная информация
+              <br/>
+              <br/>
+              <Form layout="vertical" style={{'maxWidth': '600px'}} onSubmit={this.handleSubmit}>
+                <AvatarUploader onUploaded={this.onUploadedFile} initialImageUrl={avatar}/>
+                <FormItem {...formItemLayout} label="Имя">
+                  {getFieldDecorator('firstName', {})(<Input/>)}
+                </FormItem>
 
-              <FormItem {...formItemLayout} label="Фамилия">
-                {getFieldDecorator('lastName')(<Input type="textarea" />)}
-              </FormItem>
+                <FormItem {...formItemLayout} label="Фамилия">
+                  {getFieldDecorator('lastName')(<Input type="textarea"/>)}
+                </FormItem>
 
-              <FormItem {...formItemLayout} label="Отчество">
-                {getFieldDecorator('middleName')(<Input type="textarea" />)}
-              </FormItem>
-              <FormItem {...formItemLayout} label="Пол">
-                {getFieldDecorator('gender', {
-                  initialValue: ''
-                })(
-                  <Radio.Group>
-                    <Radio value="male">Мужской</Radio>
-                    <Radio value="female">Женский</Radio>
-                  </Radio.Group>
-                )}
-              </FormItem>
-              <FormItem {...formItemLayout} label="Дата рождения">
-                {getFieldDecorator('birthday', {
-                  initialValue: moment('1980/01/01', dateFormat)
-                })(<DatePicker format={dateFormat} />)}
-              </FormItem>
-              <FormItem {...formItemLayout} label="Местоположение">
-                {getFieldDecorator('location', {
-                  initialValue: ''
-                })(<Input/>)}
-              </FormItem>
-              <FormItem {...formItemLayout} label="О себе">
-                {getFieldDecorator('about', {
-                  initialValue: ''
-                })(<TextArea className={styles.about} autosize />)}
-              </FormItem>
-              <Button style={{display: 'none'}} type="primary" htmlType="submit">Сохранить</Button>
-            </Form>
-          </DashboardContainer>
-        </Panel>
-      </PanelWrapper>
+                <FormItem {...formItemLayout} label="Отчество">
+                  {getFieldDecorator('middleName')(<Input type="textarea"/>)}
+                </FormItem>
+                <FormItem {...formItemLayout} label="Пол">
+                  {getFieldDecorator('gender', {
+                    initialValue: ''
+                  })(
+                      <Radio.Group>
+                        <Radio value="male">Мужской</Radio>
+                        <Radio value="female">Женский</Radio>
+                      </Radio.Group>
+                  )}
+                </FormItem>
+                <FormItem {...formItemLayout} label="Дата рождения">
+                  {getFieldDecorator('birthday', {
+                    initialValue: moment('1980/01/01', dateFormat)
+                  })(<DatePicker format={dateFormat}/>)}
+                </FormItem>
+                <FormItem {...formItemLayout} label="Местоположение">
+                  {getFieldDecorator('location', {
+                    initialValue: ''
+                  })(<Input/>)}
+                </FormItem>
+                <FormItem {...formItemLayout} label="О себе">
+                  {getFieldDecorator('about', {
+                    initialValue: ''
+                  })(<TextArea className={styles.about} autosize/>)}
+                </FormItem>
+                <Button style={{display: 'none'}} type="primary" htmlType="submit">Сохранить</Button>
+              </Form>
+            </DashboardContainer>
+          </Panel>
+        </PanelWrapper>
     );
   }
 
@@ -138,7 +142,15 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values, values.birthday.format('YYYY-MM-DD'));
-        this.props.actions.updateUser(this.props.userId, values.firstName, values.lastName, this.state.file);
+        const {userId: id} = this.props;
+        const {file: avatar} = this.state;
+        const {firstName, lastName} = values;
+        this.props.actions.updateUser({
+          id,
+          firstName,
+          lastName,
+          avatar
+        });
       }
     });
   }
@@ -164,7 +176,7 @@ const WrappedMainSettings = Form.create<IPropsComponents>({
 const mapStateToProps = (state: State): IStateProps => {
   const account = getAccount(state);
   return {
-    isAuthenticated:  isAuthenticated(state),
+    isAuthenticated: isAuthenticated(state),
     userId: account.id,
     firstName: account.firstName,
     lastName: account.lastName,
@@ -173,7 +185,12 @@ const mapStateToProps = (state: State): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
-  actions:  bindActionCreators<any,  any>(actions, dispatch)
+  actions: bindActionCreators({
+    updateUser
+  }, dispatch)
 });
+// const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => bindActionCreators({
+//   actions: {
+// }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps as any)(WrappedMainSettings as any);

@@ -10,7 +10,7 @@ export interface UpdateUserAction extends RequestAction<UpdateUserResponseType> 
   payload?: LoginResponseType;
 }
 
-export const updateUser: ActionCreator<UpdateUserAction> = (
+export const updateUser = (
     data: UpdateUserType
 ): UpdateUserAction => {
   const request = new UpdateUser(data);

@@ -10,8 +10,7 @@ export type StartAppAction = {
   }
 };
 
-export const startApp: ActionCreator<StartAppAction> =
-    (accessToken?: string, refreshToken?: string): StartAppAction => {
+export const startApp = (accessToken?: string, refreshToken?: string): StartAppAction => {
   return {
     type: START_APP,
     payload: {

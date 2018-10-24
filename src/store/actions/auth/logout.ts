@@ -9,7 +9,7 @@ export interface LogoutAction extends RequestAction<LogoutResponseType> {
   payload?: LogoutResponseType;
 }
 
-export const logout: ActionCreator<LogoutAction> = (): LogoutAction => {
+export const logout = (): LogoutAction => {
   const request = new Logout();
   return {
     type: LOGOUT,

@@ -48,7 +48,6 @@ type IPropsComponents = IStateProps & IDispatchProps & {
   form: WrappedFormUtils;
 };
 
-
 class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
   constructor(props: IPropsComponents) {
     super(props);
@@ -92,19 +91,18 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
     );
   }
 
-  private handleSubmit = (e): void => {
+  private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values, values.birthday.format('YYYY-MM-DD'));
-        this.props.actions.updateUser(this.props.userId, values.firstName, values.lastName);
       }
     });
   }
 }
 
 const WrappedSpecializationSettings = Form.create<IPropsComponents>({
-  mapPropsToFields(props) {
+  mapPropsToFields: (props: IStateProps) => {
     return {
       firstName: Form.createFormField({
         value: props.firstName

@@ -21,13 +21,16 @@ import Drawer from 'antd/lib/drawer';
 import Button from 'antd/lib/button';
 import { HeadWrapper } from '../../components/head-wrapper';
 import { dashboardRoutes } from '../../router/routes';
+import { logout, startApp } from '../../../store/actions';
 
 export interface IStateProps {
   newCabinetVisible: boolean;
 }
 
 export interface IDispatchProps {
-  actions: any;
+  actions: {
+
+  };
 }
 
 type IPropsComponents = IStateProps & IDispatchProps;

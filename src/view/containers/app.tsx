@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { getCurrentUserChars, isAuthenticated } from '../../store/reducers/domain/account/selectors';
 import { State } from '../../store/reducers/index';
-import * as actions from '../../store/actions';
 import { withRouter } from 'react-router-dom';
 import { Header } from '../components/header';
 import { privateRoute } from '../router/utils';
+import { startApp } from '../../store/actions';
+import { logout } from '../../store/actions';
 import Home from './home';
 import Login from './login';
 import Register from './register';
@@ -21,6 +22,7 @@ import { Spin } from 'antd';
 import { RouteNames } from '../router';
 import { Footer } from '../components/footer';
 import { dashboardRoutes } from '../router/routes';
+import { updateUser } from '../../store/actions';
 
 export interface IStateProps {
   isAuthenticated: boolean;
@@ -29,7 +31,10 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  actions: any;
+  actions: {
+    startApp: typeof startApp;
+    logout: typeof logout;
+  };
 }
 
 type IPropsComponents = IStateProps & IDispatchProps;
@@ -92,8 +97,9 @@ const mapStateToProps = (state: State): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
-  actions: bindActionCreators<any, any>({
-    ...actions
+  actions: bindActionCreators({
+    startApp,
+    logout
   }, dispatch)
 });
 
