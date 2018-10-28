@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import {
   getCurrentUserId,
-  getCurrentUsername,
   isAuthenticated
 } from '../../../../store/reducers/domain/account/selectors';
 import { State } from '../../../../store/reducers/index';
@@ -13,6 +12,7 @@ import { withRouter } from 'react-router-dom';
 import { CabinetsRouteNames, DashboardRouteNames, SettingsRouteNames } from '../../../router/index';
 import { Link } from 'react-router-dom';
 import Menu from 'antd/lib/menu';
+import {getCurrentUsername} from "../../../../store/reducers/domain/profile/selectors";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;

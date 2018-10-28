@@ -1,7 +1,10 @@
 export type UserResponseType = {
   firstName: string;
   lastName: string;
+  middleName: string;
+  avatar: string;
   id: string;
+  userId: string;
   email: string;
 };
 

@@ -1,13 +1,16 @@
-import { combineReducers } from 'redux';
-import { AccountState, account } from './account/index';
-import { CabinetsState, cabinets } from './cabinets';
+import {combineReducers} from 'redux';
+import {AccountState, account} from './account/index';
+import {CabinetsState, cabinets} from './cabinets';
+import {ProfileState, profile} from './profile';
 
 export interface DomainState {
   account: AccountState;
   cabinets: CabinetsState;
+  profile: ProfileState;
 }
 
 export const domainState = combineReducers<DomainState>({
   account,
-  cabinets
+  cabinets,
+  profile
 });

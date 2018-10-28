@@ -1,7 +1,7 @@
 import { RequestStatus } from '../../../../api/types';
 import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/user/get-current-user-action';
-import {LOGOUT, LogoutAction} from "../../../actions/auth/logout";
-import {START_APP, StartAppAction} from "../../../actions/start-app";
+import {LOGOUT, LogoutAction} from '../../../actions/auth/logout';
+import {START_APP, StartAppAction} from '../../../actions/start-app';
 
 export interface UiState {
   loading: boolean;

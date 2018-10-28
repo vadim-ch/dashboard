@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { getCurrentUserChars, isAuthenticated } from '../../store/reducers/domain/account/selectors';
+import { isAuthenticated } from '../../store/reducers/domain/account/selectors';
 import { State } from '../../store/reducers/index';
 import { withRouter } from 'react-router-dom';
 import { Header } from '../components/header';
@@ -21,6 +21,7 @@ import { Spin } from 'antd';
 import { RouteNames } from '../router';
 import { Footer } from '../components/footer';
 import { dashboardRoutes } from '../router/routes';
+import {getCurrentUserChars} from "../../store/reducers/domain/profile/selectors";
 
 export interface IStateProps {
   isAuthenticated: boolean;

@@ -9,10 +9,7 @@ import { UPDATE_USER, UpdateUserAction } from '../../../actions/user/update-user
 import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/user/get-current-user-action';
 
 const initialState = {
-  id: '',
-  firstName: '',
-  lastName: '',
-  avatar: '',
+  userId: '',
   email: '',
   accessToken: '',
   refreshToken: '',
@@ -21,10 +18,7 @@ const initialState = {
 };
 
 export interface AccountState extends RequestState {
-  id: string;
-  firstName: string;
-  lastName: string;
-  avatar: string;
+  userId: string;
   email: string;
   accessToken: string;
   refreshToken: string;
@@ -45,14 +39,36 @@ export function account(
   switch (action.type) {
     case REGISTER:
     case REFRESH_TOKEN:
-    case GET_USER:
-    case UPDATE_USER:
-    case GET_CURRENT_USER:
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         return {
           ...state,
-          ...action.payload,
+          userId: action.payload.userId,
+          accessToken: action.payload.accessToken,
+          refreshToken: action.payload.refreshToken,
+          status: action.status
+        };
+      }
+      if (action.status === RequestStatus.Pending) {
+        return {
+          ...state,
+          status: action.status
+        };
+      }
+      if (action.status === RequestStatus.Error) {
+        return {
+          ...state,
+          status: action.status,
+          errors: action.errors
+        };
+      }
+      return state;
+    }
+    case GET_CURRENT_USER: {
+      if (action.status === RequestStatus.Complete) {
+        return {
+          ...state,
+          userId: action.payload.userId,
           status: action.status
         };
       }

@@ -1,15 +1,14 @@
 import { createSelector } from 'reselect';
 import { State } from '../../index';
 import { AccountState } from './index';
-import { RequestErrors, RequestStatus } from '../../../../api/types';
-import { STORAGE_URL } from '../../../../api/requests';
+import { RequestStatus } from '../../../../api/types';
 
 export const getAccount = (state: State): AccountState => state.domainState.account;
 
 export const isAuthenticated = createSelector(
     [getAccount],
     (account: AccountState): boolean => {
-      return Boolean(account.id);
+      return Boolean(account.userId);
     }
 );
 
@@ -27,30 +26,10 @@ export const getRefreshToken = createSelector(
     }
 );
 
-export const getCurrentUsername = createSelector(
-    [getAccount],
-    (account: AccountState): string => {
-      return account.firstName ? account.firstName : account.email;
-    }
-);
-
-export const getCurrentUserChars = createSelector(
-    [getAccount],
-    (account: AccountState): string => {
-      return (account.firstName && account.lastName) ? `${account.firstName[0]}${account.lastName[0]}`.toUpperCase() : '';
-    }
-);
 
 export const getCurrentUserId = createSelector(
     [getAccount],
     (account: AccountState): string => {
-      return account.id;
-    }
-);
-
-export const getAvatarUrl = createSelector(
-    [getAccount],
-    (account: AccountState): string => {
-      return `${STORAGE_URL}/avatars/${account.avatar}`;
+      return account.userId;
     }
 );

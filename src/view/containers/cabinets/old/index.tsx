@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import {
   getCurrentUserId,
-  getCurrentUsername,
   isAuthenticated
 } from '../../../../store/reducers/domain/account/selectors';
 import { State } from '../../../../store/reducers';
@@ -17,6 +16,7 @@ import {SubPanel} from '../../../components/sub-panel';
 import CabinetsMenu from '../menu';
 import {Panel} from '../../../components/panel';
 import {PanelWrapper} from '../../../components/panel-wrapper';
+import {getCurrentUsername} from "../../../../store/reducers/domain/profile/selectors";
 
 export interface IStateProps {
   isAuthenticated: boolean;

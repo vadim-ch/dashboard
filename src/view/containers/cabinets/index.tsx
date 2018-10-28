@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import {
   getCurrentUserId,
-  getCurrentUsername,
   isAuthenticated
 } from '../../../store/reducers/domain/account/selectors';
 import { State } from '../../../store/reducers/index';

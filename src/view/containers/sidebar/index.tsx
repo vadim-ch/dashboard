@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Route, Switch, Redirect, matchPath} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-import {isAuthenticated, getCurrentUserChars} from '../../../store/reducers/domain/account/selectors';
+import {isAuthenticated} from '../../../store/reducers/domain/account/selectors';
 import {State} from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
 import {withRouter} from 'react-router-dom';
@@ -14,6 +14,7 @@ import Dropdown from 'antd/lib/dropdown';
 import Avatar from 'antd/lib/avatar';
 import Icon from 'antd/lib/icon';
 import {dashboardRoutes} from '../../router/routes';
+import {getCurrentUserChars} from "../../../store/reducers/domain/profile/selectors";
 
 const styles = require('./styles.less');
 

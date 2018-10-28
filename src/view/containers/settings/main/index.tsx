@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import { ActionCreator, bindActionCreators, Dispatch } from 'redux';
 import {
   getCurrentUserId,
-  getCurrentUsername,
   isAuthenticated,
-  getAccount, getAvatarUrl
+  getAccount
 } from '../../../../store/reducers/domain/account/selectors';
 import { State } from '../../../../store/reducers';
 import * as actions from '../../../../store/actions';
@@ -28,6 +27,7 @@ import moment from 'moment';
 import { AvatarUploader } from '../../../components/image-uploader';
 import { updateUser } from '../../../../store/actions';
 import { UpdateUserAction } from '../../../../store/actions/user/update-user-action';
+import {getAvatarUrl, getProfile} from "../../../../store/reducers/domain/profile/selectors";
 
 const styles = require('./styles.less');
 
@@ -40,7 +40,10 @@ export interface IStateProps {
   userId: string;
   firstName: string;
   lastName: string;
+  middleName: string;
   avatar: string;
+  gender: string;
+  birthday: string;
 }
 
 export interface IDispatchProps {
@@ -101,9 +104,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
                   {getFieldDecorator('middleName')(<Input type="textarea"/>)}
                 </FormItem>
                 <FormItem {...formItemLayout} label="Пол">
-                  {getFieldDecorator('gender', {
-                    initialValue: ''
-                  })(
+                  {getFieldDecorator('gender')(
                       <Radio.Group>
                         <Radio value="male">Мужской</Radio>
                         <Radio value="female">Женский</Radio>
@@ -168,6 +169,15 @@ const WrappedMainSettings = Form.create<IPropsComponents>({
       }),
       lastName: Form.createFormField({
         value: props.lastName
+      }),
+      middleName: Form.createFormField({
+        value: props.middleName
+      }),
+      gender: Form.createFormField({
+        value: props.gender
+      }),
+      birthday: Form.createFormField({
+        value: props.birthday
       })
     };
   }
@@ -175,11 +185,15 @@ const WrappedMainSettings = Form.create<IPropsComponents>({
 
 const mapStateToProps = (state: State): IStateProps => {
   const account = getAccount(state);
+  const profile = getProfile(state);
   return {
     isAuthenticated: isAuthenticated(state),
-    userId: account.id,
-    firstName: account.firstName,
-    lastName: account.lastName,
+    userId: account.userId,
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    middleName: profile.middleName,
+    gender: profile.gender,
+    birthday: profile.birthday,
     avatar: getAvatarUrl(state)
   };
 };
