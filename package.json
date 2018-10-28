@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "webpack --env=dev --progress --profile --colors",
     "build:prod": "npm install && rm -rf ./public/dist/* && webpack -p --env=prod --progress --profile --colors",
-    "dev": "webpack-dev-server --env=hot-dev --progress --profile --colors",
+    "dev": "webpack-dev-server --env=hot-dev --progress --profile --colors --watch-poll",
     "test": "./node_modules/jest-cli/bin/jest.js"
   },
   "author": "",
