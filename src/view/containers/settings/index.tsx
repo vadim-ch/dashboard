@@ -80,7 +80,7 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
           />
           <Route
             path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Specialization}`}
-            component={SpecializationSettings}
+            component={props => <SpecializationSettings {...props} wrappedComponentRef={this.saveFormRef}/>}
           />
         </Switch>
       </React.Fragment>

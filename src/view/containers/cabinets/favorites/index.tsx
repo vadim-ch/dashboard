@@ -16,7 +16,7 @@ import {SubPanel} from '../../../components/sub-panel';
 import CabinetsMenu from '../menu';
 import {Panel} from '../../../components/panel';
 import {PanelWrapper} from '../../../components/panel-wrapper';
-import {getCurrentUsername} from "../../../../store/reducers/domain/profile/selectors";
+import {getCurrentUsername} from '../../../../store/reducers/domain/profile/selectors';
 
 export interface IStateProps {
   isAuthenticated: boolean;

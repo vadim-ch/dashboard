@@ -3,6 +3,7 @@ export type UserResponseType = {
   lastName: string;
   middleName: string;
   avatar: string;
+  qualifications: Array<string>;
   id: string;
   userId: string;
   email: string;

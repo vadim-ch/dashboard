@@ -7,6 +7,7 @@ import { localStorageMiddleware } from './middlewares/local-storage-middleware';
 import { authMiddleware } from './middlewares/auth-middleware';
 import { apiMiddleware } from './middlewares/api-middleware';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { requestNotificationsMiddleware } from './middlewares/request-notifications-middleware';
 
 export const history = createHistory();
 
@@ -14,6 +15,7 @@ let middlewares = [
   routerMiddleware(history),
   apiMiddleware,
   localStorageMiddleware,
+  requestNotificationsMiddleware,
   authMiddleware
 ];
 

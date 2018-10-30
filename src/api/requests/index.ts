@@ -24,10 +24,12 @@ export class ApiRequest<ResponseT> implements IBaseRequest {
   protected  _props: object;
   protected  _config: object;
   protected  _path: string;
-  constructor(requestType: string, path: string, queryOrBodyParams?: object | FormData) {
+  protected  _formData: boolean;
+  constructor(requestType: string, path: string, queryOrBodyParams?: object, formData: boolean = false) {
     this._type = requestType;
     this._props = queryOrBodyParams;
     this._path = path;
+    this._formData = formData;
     // if (queryOrBodyParams instanceof FormData) {
     //   this._config = {
     //     ...this._config,
@@ -42,7 +44,7 @@ export class ApiRequest<ResponseT> implements IBaseRequest {
   public get request(): Promise<ResponseT> {
     switch (this._type) {
       case ApiRequestType.Post: {
-        this._request = axios.post(this._path, this._props, this._config);
+        this._request = axios.post(this._path, this.prepareRequestData(this._props, this._formData), this._config);
         break;
       }
       case ApiRequestType.Get: {
@@ -62,7 +64,7 @@ export class ApiRequest<ResponseT> implements IBaseRequest {
         break;
       }
       case ApiRequestType.Put: {
-        this._request = axios.put(this._path, this._props, this._config);
+        this._request = axios.put(this._path, this.prepareRequestData(this._props, this._formData), this._config);
         break;
       }
       default: {
@@ -75,5 +77,25 @@ export class ApiRequest<ResponseT> implements IBaseRequest {
       }
     }
     return this._request.then(response => response.data);
+  }
+
+  private prepareRequestData(data: object, formData: boolean): FormData | object {
+    try {
+      return formData ? this.createFormData(data) : data;
+    } catch (e) {
+      console.error('prepare request data error:', e);
+    }
+  }
+
+  private createFormData(data: object): FormData {
+    const formData = new FormData();
+    for (const key in data) {
+      if (!Array.isArray(data[key])) {
+        formData.append(key, data[key]);
+      } else {
+        data[key].forEach(val => formData.append(`${key}[]`, val));
+      }
+    }
+    return formData;
   }
 }

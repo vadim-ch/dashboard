@@ -2,22 +2,21 @@ import { ApiRequest, ApiRequestType } from '../index';
 import { UserPath, UserResponseType } from './types';
 
 export type UpdateUserType = {
-  id?: string;
   firstName?: string;
   lastName?: string;
+  middleName?: string;
+  gender?: string;
+  birthday?: string;
   avatar?: File;
+  qualifications?: Array<string>;
 };
 
 export interface UpdateUserResponseType extends UserResponseType {
 }
 
 export class UpdateUser extends ApiRequest<UpdateUserResponseType> {
-  constructor(props: UpdateUserType) {
-    const formData = new FormData();
-    formData.append('firstName', props.firstName);
-    formData.append('lastName', props.lastName);
-    formData.append('avatar', props.avatar);
-    super(ApiRequestType.Put, `${UserPath.Put}/${props.id}`, formData);
+  constructor(id: string, props: UpdateUserType) {
+    super(ApiRequestType.Put, `${UserPath.Put}/${id}`, props, true);
   }
 
   public get request(): Promise<UpdateUserResponseType> {

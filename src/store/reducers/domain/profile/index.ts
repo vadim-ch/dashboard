@@ -3,6 +3,7 @@ import { UPDATE_USER, UpdateUserAction } from '../../../actions/user/update-user
 import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/user/get-current-user-action';
 
 const initialState = {
+  expertId: '',
   firstName: '',
   lastName: '',
   middleName: '',
@@ -23,6 +24,7 @@ const initialState = {
 };
 
 export interface ProfileState extends RequestState {
+  expertId: string;
   firstName: string;
   lastName: string;
   middleName: string;
@@ -50,10 +52,12 @@ export function profile(
       if (action.status === RequestStatus.Complete) {
         return {
           ...state,
+          expertId: action.payload.id,
           firstName: action.payload.firstName,
           lastName: action.payload.lastName,
           middleName: action.payload.middleName,
           avatar: action.payload.avatar,
+          qualifications: action.payload.qualifications,
           status: action.status
         };
       }

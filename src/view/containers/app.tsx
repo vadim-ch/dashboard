@@ -21,7 +21,7 @@ import { Spin } from 'antd';
 import { RouteNames } from '../router';
 import { Footer } from '../components/footer';
 import { dashboardRoutes } from '../router/routes';
-import {getCurrentUserChars} from "../../store/reducers/domain/profile/selectors";
+import {getCurrentUserChars} from '../../store/reducers/domain/profile/selectors';
 
 export interface IStateProps {
   isAuthenticated: boolean;

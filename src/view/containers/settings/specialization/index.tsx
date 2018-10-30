@@ -22,25 +22,30 @@ import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
 import DatePicker from 'antd/lib/date-picker';
+import Checkbox from 'antd/lib/checkbox';
 import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import moment from 'moment';
+import { getProfile } from '../../../../store/reducers/domain/profile/selectors';
+import { updateUser } from '../../../../store/actions';
 
+const CheckboxGroup = Checkbox.Group;
 const styles = require('./styles.less');
 
 const FormItem = Form.Item;
-const { MonthPicker, RangePicker } = DatePicker;
-const { TextArea } = Input;
+const {MonthPicker, RangePicker} = DatePicker;
+const {TextArea} = Input;
 
 export interface IStateProps {
+  expertId: string;
   isAuthenticated: boolean;
-  userId: string;
-  firstName: string;
-  lastName: string;
+  qualifications: Array<string>;
 }
 
 export interface IDispatchProps {
-  actions: any;
+  actions: {
+    updateUser: typeof updateUser;
+  };
 }
 
 type IPropsComponents = IStateProps & IDispatchProps & {
@@ -59,55 +64,72 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
   public render(): JSX.Element {
     const formItemLayout = {
       labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 }
+        xs: {span: 24},
+        sm: {span: 8}
       },
       wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 }
+        xs: {span: 24},
+        sm: {span: 16}
       }
     };
-    const { isAuthenticated, form} = this.props;
-    const { getFieldDecorator } = form;
+    const {isAuthenticated, form} = this.props;
+    const {getFieldDecorator} = form;
+    const options = [
+      {label: 'Психолог', value: 'psychologist'},
+      {label: 'Психотерапевт', value: 'psychotherapist'},
+      {label: 'Психиатр', value: 'psychiatrist'},
+      {label: 'Психоаналитик', value: 'psychoanalyst'}
+    ];
     return (
-      <PanelWrapper>
-        <SubPanel>
-          <SettingsMenu />
-        </SubPanel>
-        <Panel>
-          <DashboardContainer>
-              Личная информация
-            <br/>
-            <br/>
-            <Form layout="vertical" style={{ 'maxWidth': '600px' }} onSubmit={this.handleSubmit}>
-              <FormItem {...formItemLayout} label="Имя">
-                {getFieldDecorator('firstName', {})(<Input/>)}
-              </FormItem>
-            </Form>
-          </DashboardContainer>
-        </Panel>
-      </PanelWrapper>
+        <PanelWrapper>
+          <SubPanel>
+            <SettingsMenu/>
+          </SubPanel>
+          <Panel>
+            <DashboardContainer>
+              Специализация
+              <br/>
+              <br/>
+              <Form layout="vertical" style={{'maxWidth': '600px'}} onSubmit={this.handleSubmit}>
+                <FormItem {...formItemLayout} label="Квалификация" style={{width: '40px'}}>
+                  {getFieldDecorator('qualifications')(
+                      <CheckboxGroup options={options}/>
+                  )}
+                </FormItem>
+              </Form>
+            </DashboardContainer>
+          </Panel>
+        </PanelWrapper>
     );
   }
 
   private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault();
+    this.submitForm();
+  };
+
+  private submitForm = (): void => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values, values.birthday.format('YYYY-MM-DD'));
+        console.log('specialization form: ', values);
+        const {expertId} = this.props;
+        const {qualifications} = values;
+        this.props.actions.updateUser(
+            expertId,
+            {
+              qualifications
+            }
+        );
       }
     });
-  }
+  };
 }
 
 const WrappedSpecializationSettings = Form.create<IPropsComponents>({
   mapPropsToFields: (props: IStateProps) => {
     return {
-      firstName: Form.createFormField({
-        value: props.firstName
-      }),
-      lastName: Form.createFormField({
-        value: props.lastName
+      qualifications: Form.createFormField({
+        value: props.qualifications
       })
     };
   }
@@ -115,16 +137,18 @@ const WrappedSpecializationSettings = Form.create<IPropsComponents>({
 
 const mapStateToProps = (state: State): IStateProps => {
   const account = getAccount(state);
+  const profile = getProfile(state);
   return {
-    isAuthenticated:  isAuthenticated(state),
-    userId: account.id,
-    firstName: account.firstName,
-    lastName: account.lastName
+    expertId: profile.expertId,
+    isAuthenticated: isAuthenticated(state),
+    qualifications: profile.qualifications
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
-  actions:  bindActionCreators<any,  any>(actions, dispatch)
+  actions: bindActionCreators({
+    updateUser
+  }, dispatch)
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(WrappedSpecializationSettings as any));
+export default connect(mapStateToProps, mapDispatchToProps as any)(WrappedSpecializationSettings as any);
