@@ -4,6 +4,10 @@ export type UserResponseType = {
   middleName: string;
   avatar: string;
   qualifications: Array<string>;
+  directionsTherapy: Array<string>;
+  approachesTherapy: Array<string>;
+  methodsTherapy: Array<string>;
+  requestsTherapy: Array<string>;
   id: string;
   userId: string;
   email: string;

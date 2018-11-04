@@ -40,6 +40,7 @@ export interface IStateProps {
   expertId: string;
   isAuthenticated: boolean;
   qualifications: Array<string>;
+  directionsTherapy: Array<string>;
 }
 
 export interface IDispatchProps {
@@ -72,13 +73,18 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
         sm: {span: 16}
       }
     };
-    const {isAuthenticated, form} = this.props;
+    const {isAuthenticated, form, approachesTherapyList} = this.props;
     const {getFieldDecorator} = form;
-    const options = [
+    const qualificationOptions = [
       {label: 'Психолог', value: 'psychologist'},
       {label: 'Психотерапевт', value: 'psychotherapist'},
       {label: 'Психиатр', value: 'psychiatrist'},
       {label: 'Психоаналитик', value: 'psychoanalyst'}
+    ];
+    const directionsTherapyOptions = [
+      {label: 'Семейная терапия', value: 'family-therapy'},
+      {label: 'Индивидуальная терапия', value: 'individual-therapy'},
+      {label: 'Групповая терапия', value: 'group-therapy'}
     ];
     return (
         <PanelWrapper>
@@ -91,9 +97,24 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
               <br/>
               <br/>
               <Form layout="vertical" style={{'maxWidth': '600px'}} onSubmit={this.handleSubmit}>
-                <FormItem {...formItemLayout} label="Квалификация" style={{width: '40px'}}>
+                <FormItem {...formItemLayout} label="Квалификация" className={styles.checkbox}>
                   {getFieldDecorator('qualifications')(
-                      <CheckboxGroup options={options}/>
+                      <CheckboxGroup options={qualificationOptions}/>
+                  )}
+                </FormItem>
+                <FormItem {...formItemLayout} label="Направление работы" className={styles.checkbox}>
+                  {getFieldDecorator('directionsTherapy')(
+                      <CheckboxGroup options={directionsTherapyOptions}/>
+                  )}
+                </FormItem>
+                <FormItem {...formItemLayout} label="Подходы" className={styles.checkbox}>
+                  {getFieldDecorator('approachesTherapy')(
+                      <Select
+                          mode="multiple"
+                          placeholder="Выберите подходы"
+                      >
+                        {approachesTherapyList.map((item) => <Option key={item.name}>{item.name}</Option>}
+                      </Select>
                   )}
                 </FormItem>
               </Form>
@@ -113,11 +134,12 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
       if (!err) {
         console.log('specialization form: ', values);
         const {expertId} = this.props;
-        const {qualifications} = values;
+        const {qualifications, directionsTherapy} = values;
         this.props.actions.updateUser(
             expertId,
             {
-              qualifications
+              qualifications,
+              directionsTherapy
             }
         );
       }
@@ -130,6 +152,9 @@ const WrappedSpecializationSettings = Form.create<IPropsComponents>({
     return {
       qualifications: Form.createFormField({
         value: props.qualifications
+      }),
+      directionsTherapy: Form.createFormField({
+        value: props.directionsTherapy
       })
     };
   }
@@ -141,7 +166,8 @@ const mapStateToProps = (state: State): IStateProps => {
   return {
     expertId: profile.expertId,
     isAuthenticated: isAuthenticated(state),
-    qualifications: profile.qualifications
+    qualifications: profile.qualifications,
+    directionsTherapy: profile.directionsTherapy
   };
 };
 

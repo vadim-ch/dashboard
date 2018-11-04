@@ -32,7 +32,7 @@ export interface ProfileState extends RequestState {
   email: string;
   description: string;
   birthday: string;
-  gender: 'male' | 'female';
+  gender: string;
   location: string;
   sessionTime: string;
   sessionPrice: string;
@@ -58,6 +58,7 @@ export function profile(
           middleName: action.payload.middleName,
           avatar: action.payload.avatar,
           qualifications: action.payload.qualifications,
+          directionsTherapy: action.payload.directionsTherapy,
           status: action.status
         };
       }

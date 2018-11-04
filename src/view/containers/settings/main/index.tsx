@@ -92,7 +92,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
               <Form layout="vertical" style={{'maxWidth': '600px'}} onSubmit={this.handleSubmit}>
                 <AvatarUploader onUploaded={this.onUploadedFile} initialImageUrl={avatar}/>
                 <FormItem {...formItemLayout} label="Имя">
-                  {getFieldDecorator('firstName', {})(<Input/>)}
+                  {getFieldDecorator('firstName', )(<Input/>)}
                 </FormItem>
 
                 <FormItem {...formItemLayout} label="Фамилия">

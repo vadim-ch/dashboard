@@ -9,6 +9,10 @@ export type UpdateUserType = {
   birthday?: string;
   avatar?: File;
   qualifications?: Array<string>;
+  directionsTherapy?: Array<string>;
+  approachesTherapy?: Array<string>;
+  methodsTherapy?: Array<string>;
+  requestsTherapy?: Array<string>;
 };
 
 export interface UpdateUserResponseType extends UserResponseType {
