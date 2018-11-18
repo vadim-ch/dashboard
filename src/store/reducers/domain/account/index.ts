@@ -1,12 +1,13 @@
 import { LOGIN, LoginAction } from '../../../actions/auth/login';
-import { LOGOUT, LogoutAction } from '../../../actions/auth/logout';
+import { LogoutAction } from '../../../actions/auth/logout';
 import { REFRESH_TOKEN, RefreshTokenAction } from '../../../actions/auth/refresh-token';
 import { RequestState, RequestStatus } from '../../../../api/types';
 import { REGISTER, RegisterAction } from '../../../actions/auth/register';
-import { GET_USER, GetUserAction } from '../../../actions/user/get-user-action';
-import { START_APP, StartAppAction } from '../../../actions/start-app';
-import { UPDATE_USER, UpdateUserAction } from '../../../actions/user/update-user-action';
+import { GetUserAction } from '../../../actions/user/get-user-action';
+import { StartAppAction } from '../../../actions/start-app';
+import { UpdateUserAction } from '../../../actions/user/update-user-action';
 import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/user/get-current-user-action';
+import {EMAIL_SIGIN, EmailSigninAction} from "../../../actions/auth/email-signin";
 
 const initialState = {
   userId: '',
@@ -34,11 +35,13 @@ export function account(
         RefreshTokenAction |
         GetUserAction |
         UpdateUserAction |
-        GetCurrentUserAction
+        GetCurrentUserAction |
+        EmailSigninAction
 ): AccountState {
   switch (action.type) {
     case REGISTER:
     case REFRESH_TOKEN:
+    case EMAIL_SIGIN:
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         return {
@@ -87,23 +90,6 @@ export function account(
       }
       return state;
     }
-    // case START_APP: {
-    //   const {accessToken, refreshToken} = action.payload;
-    //   return {
-    //     ...state,
-    //     accessToken,
-    //     refreshToken
-    //   };
-    // }
-    // case LOGOUT: {
-    //   if (action.status === RequestStatus.Complete) {
-    //     return {
-    //       ...state,
-    //       ...initialState
-    //     };
-    //   }
-    //   return state;
-    // }
     default:
       return state;
   }

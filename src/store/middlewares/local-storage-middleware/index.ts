@@ -5,6 +5,7 @@ import { LOGIN, LoginAction } from '../../actions/auth/login';
 import { REFRESH_TOKEN, RefreshTokenAction } from '../../actions/auth/refresh-token';
 import { RequestStatus } from '../../../api/types';
 import { REGISTER, RegisterAction } from '../../actions/auth/register';
+import {EMAIL_SIGIN, EmailSigninAction} from '../../actions/auth/email-signin';
 
 const Token = {
   Access: 'at',
@@ -16,7 +17,13 @@ const setAuthToken = (token: string) => {
 };
 
 export const localStorageMiddleware = store => next => (
-    action: LoginAction | LogoutAction | RegisterAction | RefreshTokenAction | StartAppAction
+    action:
+        LoginAction |
+        LogoutAction |
+        RegisterAction |
+        RefreshTokenAction |
+        StartAppAction |
+        EmailSigninAction
 ) => {
   const dispatch = store.dispatch;
   switch (action.type) {
@@ -28,6 +35,7 @@ export const localStorageMiddleware = store => next => (
     }
     case REGISTER:
     case REFRESH_TOKEN:
+    case EMAIL_SIGIN:
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         if (action.payload.accessToken) {

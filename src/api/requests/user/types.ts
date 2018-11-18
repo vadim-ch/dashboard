@@ -15,7 +15,6 @@ export type UserResponseType = {
 
 export const UserPath = {
   Get: 'experts',
-  GetCurrent: 'experts/current',
   Put: 'experts',
   GetAll: 'experts'
 };

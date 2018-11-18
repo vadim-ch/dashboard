@@ -5,7 +5,7 @@ export const RouteNames = {
   Home: '/',
   Login: '/login',
   Register: '/register',
-  Search: '/search'
+  Search: '/search',
 };
 
 export const DashboardRouteNames = {

@@ -6,15 +6,30 @@ import {RefreshTokenAction} from '../../actions/auth/refresh-token';
 import {RequestStatus} from '../../../api/types';
 import {RouteNames} from '../../../view/router';
 import {push} from 'connected-react-router';
-import {getCurrentUser} from '../../actions/user/get-current-user-action';
+import { getCurrentUser } from '../../actions/user/get-current-user-action';
+import {EMAIL_SIGIN, emailSignin, EmailSigninAction} from '../../actions/auth/email-signin';
 
 export const authMiddleware = store => next => async (
-    action: LoginAction | StartAppAction | RegisterAction | LogoutAction | RefreshTokenAction
+    action:
+        LoginAction |
+        StartAppAction |
+        RegisterAction |
+        LogoutAction |
+        RefreshTokenAction |
+        EmailSigninAction
 ) => {
   const dispatch = store.dispatch;
   switch (action.type) {
     case START_APP: {
-      dispatch(getCurrentUser());
+
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('email-token');
+      if (token) {
+        dispatch(emailSignin(token));
+      } else {
+        dispatch(getCurrentUser());
+      }
+
       return next(action);
     }
 
@@ -37,6 +52,15 @@ export const authMiddleware = store => next => async (
     case REGISTER: {
       if (action.status === RequestStatus.Complete) {
         store.dispatch(push(RouteNames.Home));
+      }
+      return next(action);
+    }
+    case EMAIL_SIGIN: {
+      if (action.status === RequestStatus.Complete) {
+        store.dispatch(push(window.location.pathname));
+      }
+      if (action.status === RequestStatus.Error) {
+        store.dispatch(push(RouteNames.Login));
       }
       return next(action);
     }

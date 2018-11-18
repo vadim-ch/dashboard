@@ -20,7 +20,6 @@ const styles = require('./styles.less');
 import { Spin } from 'antd';
 import { RouteNames } from '../router';
 import { Footer } from '../components/footer';
-import { dashboardRoutes } from '../router/routes';
 import {getCurrentUserChars} from '../../store/reducers/domain/profile/selectors';
 
 export interface IStateProps {
@@ -70,9 +69,9 @@ class App extends React.PureComponent<IPropsComponents, void> {
               {/*<Route path='/settings' component={Settings} />*/}
               {/*<Route path='/@:username/favorites' component={ProfileFavorites} />*/}
               {/*<Route path='/@:username' component={Profile} />*/}
-              {dashboardRoutes.map((route, index) => {
-                  return privateRoute(route.main, {path: route.path}, isAuthenticated);
-              })}
+              {/*{dashboardRoutes.map((route, index) => {*/}
+                  {/*return privateRoute(route.main, {path: route.path}, isAuthenticated);*/}
+              {/*})}*/}
             </Switch>
           </main>
           <Footer/>
