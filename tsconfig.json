@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "lib": ["dom", "es2015"],
-    "module": "ESNext",
+    "module": "esnext",
     "noImplicitAny": false,
     "outDir": "./tmpBuild/",
     "rootDir": "./src",
@@ -13,9 +13,6 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./"
    },
-  "paths": {
-    "@components/*": ["/view/components"]
-  },
   "exclude": [
     "node_modules",
     "**/*-test.ts",

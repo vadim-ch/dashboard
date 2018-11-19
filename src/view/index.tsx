@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Store } from 'redux';
 import { Provider } from 'react-redux';
-import { State } from '../store/reducers/index';
-import { BrowserRouter } from 'react-router-dom';
+import { State } from '../store/reducers';
 import { ConnectedRouter } from 'connected-react-router';
 import App from './containers/app';
 // import 'normalize.css';

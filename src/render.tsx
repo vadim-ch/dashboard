@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { Store } from 'redux';
-import { hydrate } from 'react-dom';
+import {Store} from 'redux';
+import {hydrate} from 'react-dom';
+import {BrowserRouter} from 'react-router-dom';
 import Root from './view/index';
 
 export function renderApp(store: Store<any>): void {
@@ -15,5 +16,9 @@ export function renderApp(store: Store<any>): void {
   //   });
   // }
 
-  hydrate(<Root store={store} />, APP_NODE);
+  hydrate((
+      <BrowserRouter>
+        <Root store={store}/>
+      </BrowserRouter>
+  ), APP_NODE);
 }
