@@ -23,9 +23,19 @@ if (__DEV__) {
   middlewares = [...middlewares, createLogger()];
 }
 
-export const store: Store<State> = createStore(
+const store: Store<State> = createStore(
     connectRouter(history)(reducers),
     compose(
       applyMiddleware(...middlewares)
     )
 );
+
+export const configureStore = (initialState?: object): Store<State> => {
+  return createStore(
+      connectRouter(history)(reducers),
+      initialState,
+      compose(
+          applyMiddleware(...middlewares)
+      )
+  );
+};
