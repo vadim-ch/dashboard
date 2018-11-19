@@ -2,25 +2,18 @@ import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import {
-  getCurrentUserId,
-  isAuthenticated
-} from '../../../store/reducers/domain/account/selectors';
 import { State } from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom';
 import { CabinetsRouteNames, DashboardRouteNames } from '../../router';
 import { DashboardContainer } from '../../components/dashboard-container';
-import CabinetsMenu from './menu';
 import { Title } from '../../components/title';
 import MainCabinets from './main';
 import FavoritesCabinets from './favorites';
 import OldCabinets from './old';
-import Drawer from 'antd/lib/drawer';
 import Button from 'antd/lib/button';
 import { HeadWrapper } from '../../components/head-wrapper';
 import { dashboardRoutes } from '../../router/routes';
-import { logout, startApp } from '../../../store/actions';
 
 export interface IStateProps {
   newCabinetVisible: boolean;

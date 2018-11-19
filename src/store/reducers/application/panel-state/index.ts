@@ -9,7 +9,7 @@ const initialState = {
   loading: true
 };
 
-export function uiState(
+export function panelState(
     state: UiState = initialState,
     action: GetCurrentUserAction
 ): UiState {

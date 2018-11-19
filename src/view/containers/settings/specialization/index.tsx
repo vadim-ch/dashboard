@@ -28,6 +28,7 @@ import { WrappedFormUtils } from 'antd/lib/form/Form';
 import moment from 'moment';
 import { getProfile } from '../../../../store/reducers/domain/profile/selectors';
 import { updateUser } from '../../../../store/actions';
+import {getApproachesTherapyList} from "../../../../store/reducers/domain/suggest/selectors";
 
 const CheckboxGroup = Checkbox.Group;
 const styles = require('./styles.less');
@@ -41,6 +42,7 @@ export interface IStateProps {
   isAuthenticated: boolean;
   qualifications: Array<string>;
   directionsTherapy: Array<string>;
+  approachesTherapyList: Array<any>;
 }
 
 export interface IDispatchProps {
@@ -113,7 +115,8 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
                           mode="multiple"
                           placeholder="Выберите подходы"
                       >
-                        {approachesTherapyList.map((item) => <Option key={item.name}>{item.name}</Option>}
+                        {approachesTherapyList.map((item) =>
+                            <Option key={item.name}>{item.name}</Option>}
                       </Select>
                   )}
                 </FormItem>
@@ -167,7 +170,8 @@ const mapStateToProps = (state: State): IStateProps => {
     expertId: profile.expertId,
     isAuthenticated: isAuthenticated(state),
     qualifications: profile.qualifications,
-    directionsTherapy: profile.directionsTherapy
+    directionsTherapy: profile.directionsTherapy,
+    approachesTherapyList: getApproachesTherapyList(state)
   };
 };
 
