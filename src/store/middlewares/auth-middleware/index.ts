@@ -21,9 +21,11 @@ export const authMiddleware = store => next => async (
   const dispatch = store.dispatch;
   switch (action.type) {
     case START_APP: {
-
-      const params = new URLSearchParams(window.location.search);
-      const token = params.get('email-token');
+      let token;
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        token = params.get('email-token');
+      }
       if (token) {
         dispatch(emailSignin(token));
       } else {

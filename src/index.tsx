@@ -1,8 +1,8 @@
 import { renderApp } from './render';
-import { configureStore, store } from './store/index';
+import { configureStore } from './store/';
 
-const preloadedState = window.['__PRELOADED_STATE__'];
+const preloadedState = window['__PRELOADED_STATE__'];
 delete window['__PRELOADED_STATE__'];
 
-const store = configureStore(preloadedState);
-renderApp(store);
+const { store, history } = configureStore('/', preloadedState);
+renderApp(store, history);

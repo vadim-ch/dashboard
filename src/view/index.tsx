@@ -6,23 +6,19 @@ import { ConnectedRouter } from 'connected-react-router';
 import App from './containers/app';
 // import 'normalize.css';
 import './global.less';
-import { history } from '../store';
-import LocaleProvider from 'antd/lib/locale-provider';
-import ru_RU from 'antd/lib/locale-provider/ru_RU';
 
 interface IProps {
   store: Store<State>;
+  history: any;
 }
 
 export default class Root extends React.Component<IProps, {}> {
   public render(): JSX.Element {
-    const {store} = this.props;
+    const {store, history} = this.props;
     return (
         <Provider store={store}>
           <ConnectedRouter history={history}>
-            <LocaleProvider locale={ru_RU}>
             <App/>
-            </LocaleProvider>
           </ConnectedRouter>
         </Provider>
     );

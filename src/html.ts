@@ -2,8 +2,9 @@ export const html = (body, preloadedState) => `
   <!DOCTYPE html>
   <html>
     <head>
+      <link href="/dist/main.css" rel="stylesheet"></head>
     </head>
-    <body style="margin:0">
+    <body>
       <div id="app">${body}</div>
     </body>
     <script>

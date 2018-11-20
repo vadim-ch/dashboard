@@ -6,6 +6,7 @@ import { REFRESH_TOKEN, RefreshTokenAction } from '../../actions/auth/refresh-to
 import { RequestStatus } from '../../../api/types';
 import { REGISTER, RegisterAction } from '../../actions/auth/register';
 import {EMAIL_SIGIN, EmailSigninAction} from '../../actions/auth/email-signin';
+import { LocalStorage } from '../../../utils/storage';
 
 const Token = {
   Access: 'at',
@@ -15,6 +16,9 @@ const Token = {
 const setAuthToken = (token: string) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
+
+const accessStorage = new LocalStorage<string>(Token.Access);
+const refreshStorage = new LocalStorage<string>(Token.Access);
 
 export const localStorageMiddleware = store => next => (
     action:
@@ -28,8 +32,10 @@ export const localStorageMiddleware = store => next => (
   const dispatch = store.dispatch;
   switch (action.type) {
     case START_APP: {
-      action.payload.accessToken = window.localStorage.getItem(Token.Access);
-      action.payload.refreshToken = window.localStorage.getItem(Token.Refresh);
+      action.payload.accessToken = accessStorage.item;
+      action.payload.refreshToken = refreshStorage.item;
+      // action.payload.accessToken = window.localStorage.getItem(Token.Access);
+      // action.payload.refreshToken = window.localStorage.getItem(Token.Refresh);
       setAuthToken(action.payload.accessToken);
       return next(action);
     }
@@ -39,19 +45,21 @@ export const localStorageMiddleware = store => next => (
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         if (action.payload.accessToken) {
-          window.localStorage.setItem(Token.Access, action.payload.accessToken);
+          accessStorage.item = action.payload.accessToken;
+          // window.localStorage.setItem(Token.Access, action.payload.accessToken);
           setAuthToken(action.payload.accessToken);
         }
         if (action.payload.refreshToken) {
-          window.localStorage.setItem(Token.Refresh, action.payload.refreshToken);
+          refreshStorage.item = action.payload.refreshToken;
+          // window.localStorage.setItem(Token.Refresh, action.payload.refreshToken);
         }
       }
       return next(action);
     }
     case LOGOUT: {
       if (action.status === RequestStatus.Complete) {
-        window.localStorage.setItem(Token.Access, '');
-        window.localStorage.setItem(Token.Refresh, '');
+        accessStorage.clear();
+        refreshStorage.clear();
         setAuthToken('');
       }
       return next(action);

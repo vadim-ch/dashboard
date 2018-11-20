@@ -15,12 +15,13 @@ import Register from './register';
 import Search from './search';
 import Dashboard from './dashboard';
 import { isAppLoaded } from '../../store/reducers/application/ui-state/selectors';
+import LocaleProvider from 'antd/lib/locale-provider';
 
 const styles = require('./styles.less');
-import { Spin } from 'antd';
 import { RouteNames } from '../router';
 import { Footer } from '../components/footer';
 import {getCurrentUserChars} from '../../store/reducers/domain/profile/selectors';
+import ru_RU from 'antd/lib/locale-provider/ru_RU';
 
 export interface IStateProps {
   isAuthenticated: boolean;
@@ -44,44 +45,46 @@ class App extends React.PureComponent<IPropsComponents, void> {
 
   public render(): JSX.Element {
     const {isAuthenticated, isAppLoaded, currentUsername} = this.props;
-    if (!isAppLoaded) {
-      return <div className={styles.spinWrapper}><Spin size="large"/></div>;
-    }
+    // if (!isAppLoaded) {
+    //   return <div className={styles.spinWrapper}><Spin size="large"/></div>;
+    // }
     if (isAuthenticated) {
       return <Dashboard/>;
     }
     return (
-        <React.Fragment>
-          <Header
-              currentUser={currentUsername}
-              isAuthenticated={isAuthenticated}
-              logoutHandler={this.props.actions.logout}
-          />
-          <main className={styles.main}>
-            <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route path={RouteNames.Login} component={Login}/>
-              <Route path={RouteNames.Register} component={Register}/>
-              <Route path={RouteNames.Search} component={Search}/>
-              {/*<Route path='/editor/:slug' component={Editor} />*/}
-              {/*<Route path='/editor' component={Editor} />*/}
-              {/*<Route path='/article/:id' component={Article} />*/}
-              {/*<Route path='/settings' component={Settings} />*/}
-              {/*<Route path='/@:username/favorites' component={ProfileFavorites} />*/}
-              {/*<Route path='/@:username' component={Profile} />*/}
-              {/*{dashboardRoutes.map((route, index) => {*/}
-                  {/*return privateRoute(route.main, {path: route.path}, isAuthenticated);*/}
-              {/*})}*/}
-            </Switch>
-          </main>
-          <Footer/>
-          {/*<Route exact path={RouteNames.Home} component={Home}/>*/}
-          {/*<Route path={RouteNames.Account} component={Account}/>*/}
-          {/*<Route path={RouteNames.HowItWork} component={HowItWork}/>*/}
-          {/*<Route path={RouteNames.Pricing} component={Pricing}/>*/}
-          {/*<Route path={RouteNames.Contacts} component={Contacts}/>*/}
-          {/*{this.privateRoute(Application, {path: RouteNames.Application})}*/}
-        </React.Fragment>
+        <LocaleProvider locale={ru_RU}>
+          <React.Fragment>
+            <Header
+                currentUser={currentUsername}
+                isAuthenticated={isAuthenticated}
+                logoutHandler={this.props.actions.logout}
+            />
+            <main className={styles.main}>
+              <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route path={RouteNames.Login} component={Login}/>
+                <Route path={RouteNames.Register} component={Register}/>
+                <Route path={RouteNames.Search} component={Search}/>
+                {/*<Route path='/editor/:slug' component={Editor} />*/}
+                {/*<Route path='/editor' component={Editor} />*/}
+                {/*<Route path='/article/:id' component={Article} />*/}
+                {/*<Route path='/settings' component={Settings} />*/}
+                {/*<Route path='/@:username/favorites' component={ProfileFavorites} />*/}
+                {/*<Route path='/@:username' component={Profile} />*/}
+                {/*{dashboardRoutes.map((route, index) => {*/}
+                {/*return privateRoute(route.main, {path: route.path}, isAuthenticated);*/}
+                {/*})}*/}
+              </Switch>
+            </main>
+            <Footer/>
+            {/*<Route exact path={RouteNames.Home} component={Home}/>*/}
+            {/*<Route path={RouteNames.Account} component={Account}/>*/}
+            {/*<Route path={RouteNames.HowItWork} component={HowItWork}/>*/}
+            {/*<Route path={RouteNames.Pricing} component={Pricing}/>*/}
+            {/*<Route path={RouteNames.Contacts} component={Contacts}/>*/}
+            {/*{this.privateRoute(Application, {path: RouteNames.Application})}*/}
+          </React.Fragment>
+        </LocaleProvider>
     );
   }
 }
