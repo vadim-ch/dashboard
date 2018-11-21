@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./base.js');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const packageJson = require('../package.json');
 
@@ -17,11 +17,14 @@ module.exports = function(env, __dirname) {
       ],
       index: path.resolve('src', 'index.tsx')
     },
+    optimization: {
+      minimizer: [new UglifyJsPlugin()]
+    },
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        filename: 'vendors.js?v=' + packageJson.version
-      }),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name: 'vendor',
+      //   filename: 'vendors.js?v=' + packageJson.version
+      // }),
       // TODO https://webpack.js.org/plugins/commons-chunk-plugin/
       // TODO https://medium.com/@okonetchnikov/long-term-caching-of-static-assets-with-webpack-1ecb139adb95
       // new ChunkManifestPlugin({

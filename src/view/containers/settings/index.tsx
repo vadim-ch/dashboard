@@ -19,7 +19,7 @@ import NotificationSettings from './notification';
 import SpecializationSettings from './specialization';
 import { HeadWrapper } from '../../components/head-wrapper';
 import { dashboardRoutes } from '../../router/routes';
-import {getCurrentUsername} from "../../../store/reducers/domain/profile/selectors";
+import {getCurrentUsername} from '../../../store/reducers/domain/profile/selectors';
 export interface IStateProps {
   isAuthenticated: boolean;
   currentUserId: string;

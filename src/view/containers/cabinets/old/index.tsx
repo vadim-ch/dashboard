@@ -9,14 +9,12 @@ import {
 import { State } from '../../../../store/reducers';
 import * as actions from '../../../../store/actions';
 import { withRouter } from 'react-router-dom';
-import { HeadWrapper } from '../../../components/head-wrapper';
 import { DashboardContainer } from '../../../components/dashboard-container';
-import Button from 'antd/lib/button';
 import {SubPanel} from '../../../components/sub-panel';
 import CabinetsMenu from '../menu';
 import {Panel} from '../../../components/panel';
 import {PanelWrapper} from '../../../components/panel-wrapper';
-import {getCurrentUsername} from "../../../../store/reducers/domain/profile/selectors";
+import {getCurrentUsername} from '../../../../store/reducers/domain/profile/selectors';
 
 export interface IStateProps {
   isAuthenticated: boolean;

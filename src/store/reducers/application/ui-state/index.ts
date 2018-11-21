@@ -2,7 +2,7 @@ import { RequestStatus } from '../../../../api/types';
 import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/user/get-current-user-action';
 import {LOGOUT, LogoutAction} from '../../../actions/auth/logout';
 import {START_APP, StartAppAction} from '../../../actions/start-app';
-import {EMAIL_SIGIN, EmailSigninAction} from "../../../actions/auth/email-signin";
+import {EMAIL_SIGIN, EmailSigninAction} from '../../../actions/auth/email-signin';
 
 export interface UiState {
   loading: boolean;

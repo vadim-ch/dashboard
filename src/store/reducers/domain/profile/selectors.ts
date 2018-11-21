@@ -15,7 +15,8 @@ export const getCurrentUsername = createSelector(
 export const getCurrentUserChars = createSelector(
     [getProfile],
     (profile: ProfileState): string => {
-      return (profile.firstName && profile.lastName) ? `${profile.firstName[0]}${profile.lastName[0]}`.toUpperCase() : '';
+      return (profile.firstName && profile.lastName) ?
+          `${profile.firstName[0]}${profile.lastName[0]}`.toUpperCase() : '';
     }
 );
 

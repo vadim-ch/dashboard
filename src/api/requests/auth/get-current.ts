@@ -17,7 +17,7 @@ export class GetCurrentUser extends ApiRequest<GetCurrentUserResponseType> {
         email,
         firstName,
         lastName,
-        middleName,
+        middleName
       };
     });
   }

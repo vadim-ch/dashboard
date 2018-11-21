@@ -12,13 +12,13 @@ export interface SuggestState extends RequestState {
 
 export function suggest(
     state: SuggestState = initialState,
-    action
+    action: any
 ): SuggestState {
   switch (action.type) {
     case '': {
       if (action.status === RequestStatus.Complete) {
         return {
-          ...state,
+          ...state
         };
       }
       if (action.status === RequestStatus.Pending) {

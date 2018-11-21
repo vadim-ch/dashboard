@@ -7,7 +7,10 @@
     "build:dev": "webpack --env=dev --progress --profile --colors",
     "build:prod": "npm install && rm -rf ./public/dist/* && webpack -p --env=prod --progress --profile --colors",
     "dev": "webpack-dev-server --env=hot-dev --progress --profile --colors --watch-poll",
-    "build:server": "webpack --env=dev --config webpack.server.js --mode=development --display-error-details",
+    "build-server": "webpack --env=dev --config webpack.server.js --mode=development --display-error-details",
+    "build-server:prod": "webpack --env=prod --config webpack.server.js --mode=production",
+    "build-all": "npm run build:dev && npm run build-server",
+    "build-all:prod": "npm run build:prod && npm run build-server:prod",
     "test": "./node_modules/jest-cli/bin/jest.js"
   },
   "author": "",

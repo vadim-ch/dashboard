@@ -1,8 +1,8 @@
 import { combineReducers, Action } from 'redux';
-import { DomainState, domainState } from './domain/index';
+import { DomainState, domainState } from './domain';
 import { ApplicationState, applicationState } from './application';
 import { LOGOUT } from '../actions/auth/logout';
-import {RequestStatus} from '../../api/types';
+import { RequestStatus } from '../../api/types';
 
 export interface State {
   domainState: DomainState;

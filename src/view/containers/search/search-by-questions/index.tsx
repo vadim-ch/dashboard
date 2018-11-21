@@ -94,11 +94,16 @@ class SearchByQuestions extends React.PureComponent<IPropsComponents, IState> {
               }
               {
                 current < steps.length - 1
-                && <Button disabled={(current === 0 && !value1) || (current === 1 && !value2)} type="primary" onClick={() => this.next()}>Next</Button>
+                && <Button
+                    disabled={(current === 0 && !value1) || (current === 1 && !value2)}
+                    type="primary" onClick={() => this.next()}>Next</Button>
               }
               {
                 current === steps.length - 1
-                && <Button type="primary" disabled={(current === 2)  && !value3} onClick={() => message.success('Processing complete!')}>Done</Button>
+                && <Button
+                    type="primary"
+                    disabled={(current === 2)  && !value3}
+                    onClick={() => message.success('Processing complete!')}>Done</Button>
               }
             </div>
           </PageContainer>
@@ -106,33 +111,33 @@ class SearchByQuestions extends React.PureComponent<IPropsComponents, IState> {
     );
   }
 
-  private onChange1 = e => {
+  private onChange1 = (e: any) => {
     console.log('radio1 checked', e.target.value);
     this.setState({
       value1: e.target.value
     });
   }
 
-  private onChange2 = e => {
+  private onChange2 = (e: any) => {
     console.log('radio2 checked', e.target.value);
     this.setState({
       value2: e.target.value
     });
   }
 
-  private onChange3 = e => {
+  private onChange3 = (e: any) => {
     console.log('radio3 checked', e.target.value);
     this.setState({
       value3: e.target.value
     });
   }
 
-  private next() {
+  private next(): void {
     const current = this.state.current + 1;
     this.setState({current});
   }
 
-  private prev() {
+  private prev(): void {
     const current = this.state.current - 1;
     this.setState({current});
   }

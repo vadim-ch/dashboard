@@ -7,7 +7,7 @@ import { GetUserAction } from '../../../actions/user/get-user-action';
 import { StartAppAction } from '../../../actions/start-app';
 import { UpdateUserAction } from '../../../actions/user/update-user-action';
 import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/user/get-current-user-action';
-import {EMAIL_SIGIN, EmailSigninAction} from "../../../actions/auth/email-signin";
+import { EMAIL_SIGIN, EmailSigninAction } from '../../../actions/auth/email-signin';
 
 const initialState = {
   userId: '',

@@ -17,18 +17,15 @@ import { Title } from '../../../components/title';
 import { Panel } from '../../../components/panel';
 import { SubPanel } from '../../../components/sub-panel';
 import { PanelWrapper } from '../../../components/panel-wrapper';
-import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
 import DatePicker from 'antd/lib/date-picker';
 import Checkbox from 'antd/lib/checkbox';
-import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
-import moment from 'moment';
 import { getProfile } from '../../../../store/reducers/domain/profile/selectors';
 import { updateUser } from '../../../../store/actions';
-import {getApproachesTherapyList} from "../../../../store/reducers/domain/suggest/selectors";
+import {getApproachesTherapyList} from '../../../../store/reducers/domain/suggest/selectors';
 
 const CheckboxGroup = Checkbox.Group;
 const styles = require('./styles.less');
@@ -36,6 +33,7 @@ const styles = require('./styles.less');
 const FormItem = Form.Item;
 const {MonthPicker, RangePicker} = DatePicker;
 const {TextArea} = Input;
+const {Option} = Select;
 
 export interface IStateProps {
   expertId: string;
@@ -115,8 +113,7 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
                           mode="multiple"
                           placeholder="Выберите подходы"
                       >
-                        {approachesTherapyList.map((item) =>
-                            <Option key={item.name}>{item.name}</Option>}
+                        {approachesTherapyList.map(item => <Option key={item.name}>{item.name}</Option>)}
                       </Select>
                   )}
                 </FormItem>
@@ -130,7 +127,7 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
   private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     this.submitForm();
-  };
+  }
 
   private submitForm = (): void => {
     this.props.form.validateFields((err, values) => {
@@ -147,7 +144,7 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
         );
       }
     });
-  };
+  }
 }
 
 const WrappedSpecializationSettings = Form.create<IPropsComponents>({

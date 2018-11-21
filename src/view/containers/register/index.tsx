@@ -3,10 +3,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { isAuthenticated, isAuthPending } from '../../../store/reducers/domain/account/selectors';
-import { State } from '../../../store/reducers/index';
+import { State } from '../../../store/reducers';
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom';
-import { RouteNames } from '../../router';
 import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
@@ -115,7 +114,7 @@ class Register extends React.PureComponent<IPropsComponents, IState> {
     );
   }
 
-  private compareToFirstPassword = (rule, value, callback) => {
+  private compareToFirstPassword = (rule: any, value: any, callback: any) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
       callback('Two passwords that you enter is inconsistent!');
@@ -124,12 +123,12 @@ class Register extends React.PureComponent<IPropsComponents, IState> {
     }
   }
 
-  private handleConfirmBlur = e => {
+  private handleConfirmBlur = (e: any) => {
     const value = e.target.value;
     this.setState({confirmDirty: this.state.confirmDirty || !!value});
   }
 
-  private validateToNextPassword = (rule, value, callback) => {
+  private validateToNextPassword = (rule: any, value: any, callback: any) => {
     const form = this.props.form;
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], {force: true});

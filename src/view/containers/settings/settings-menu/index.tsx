@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
 import { DashboardRouteNames, SettingsRouteNames } from '../../../router/index';
 import { Link } from 'react-router-dom';
 import Menu from 'antd/lib/menu';
-import {getCurrentUsername} from "../../../../store/reducers/domain/profile/selectors";
+import {getCurrentUsername} from '../../../../store/reducers/domain/profile/selectors';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;

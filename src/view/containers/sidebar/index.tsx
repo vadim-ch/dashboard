@@ -6,15 +6,14 @@ import {isAuthenticated} from '../../../store/reducers/domain/account/selectors'
 import {State} from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
 import {withRouter} from 'react-router-dom';
-import {getCabinets, isCabinetsPending} from '../../../store/reducers/domain/cabinets/selectors';
-import {GetAllCabinetsResponseType} from '../../../api/requests/cabinet/get-all-cabinets';
+import {isCabinetsPending} from '../../../store/reducers/domain/cabinets/selectors';
 import {NavLink} from 'react-router-dom';
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
 import Avatar from 'antd/lib/avatar';
 import Icon from 'antd/lib/icon';
 import {dashboardRoutes} from '../../router/routes';
-import {getCurrentUserChars} from "../../../store/reducers/domain/profile/selectors";
+import {getCurrentUserChars} from '../../../store/reducers/domain/profile/selectors';
 
 const styles = require('./styles.less');
 

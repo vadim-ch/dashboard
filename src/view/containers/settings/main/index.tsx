@@ -136,7 +136,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
   private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     this.submitForm();
-  };
+  }
 
   private submitForm = (): void => {
     this.props.form.validateFields((err, values) => {
@@ -155,11 +155,11 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
         );
       }
     });
-  };
+  }
 
   private onUploadedFile = (file: File) => {
     this.setState({file});
-  };
+  }
 }
 
 const WrappedMainSettings = Form.create<IPropsComponents>({

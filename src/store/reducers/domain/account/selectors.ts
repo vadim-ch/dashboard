@@ -26,7 +26,6 @@ export const getRefreshToken = createSelector(
     }
 );
 
-
 export const getCurrentUserId = createSelector(
     [getAccount],
     (account: AccountState): string => {

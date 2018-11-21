@@ -6,13 +6,13 @@ import {
   getCurrentUserId,
   isAuthenticated
 } from '../../../../store/reducers/domain/account/selectors';
-import { State } from '../../../../store/reducers/index';
+import { State } from '../../../../store/reducers';
 import * as actions from '../../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
-import { CabinetsRouteNames, DashboardRouteNames, SettingsRouteNames } from '../../../router/index';
+import { CabinetsRouteNames, DashboardRouteNames } from '../../../router';
 import { Link } from 'react-router-dom';
 import Menu from 'antd/lib/menu';
-import {getCurrentUsername} from "../../../../store/reducers/domain/profile/selectors";
+import {getCurrentUsername} from '../../../../store/reducers/domain/profile/selectors';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
