@@ -134,7 +134,8 @@ module.exports = function (env, __dirname) {
     },
     plugins: [
       new webpack.DefinePlugin({
-        __VERSION__: JSON.stringify(packageJson.version)
+        __VERSION__: JSON.stringify(packageJson.version),
+        __SERVER__: false
       }),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
