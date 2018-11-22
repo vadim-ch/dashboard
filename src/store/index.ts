@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, Store, compose } from 'redux';
 import { reducers, State } from './reducers';
 
 export { State } from './reducers';
-import { createHistory, createMemoryHistory } from 'history';
+import { createBrowserHistory, createMemoryHistory } from 'history';
 import { createLogger } from 'redux-logger';
 import { localStorageMiddleware } from './middlewares/local-storage-middleware';
 import { authMiddleware } from './middlewares/auth-middleware';
@@ -15,7 +15,7 @@ export const configureStore = (url: string = '/', initialState?: object): { stor
       createMemoryHistory({
         initialEntries: [url]
       }) :
-      createHistory();
+      createBrowserHistory();
 
   let middlewares = [
     routerMiddleware(history),
