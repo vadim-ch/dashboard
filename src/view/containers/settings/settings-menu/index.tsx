@@ -6,7 +6,7 @@ import {
   getCurrentUserId,
   isAuthenticated
 } from '../../../../store/reducers/domain/account/selectors';
-import { State } from '../../../../store/reducers/index';
+import { State } from '../../../../store/reducers';
 import * as actions from '../../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
 import { DashboardRouteNames, SettingsRouteNames } from '../../../router/index';

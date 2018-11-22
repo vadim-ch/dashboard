@@ -7,16 +7,17 @@ const packageJson = require('../package.json');
 
 module.exports = function(env, __dirname) {
   return webpackMerge(commonConfig(env, __dirname), {
-    entry: {
-      vendor: [
-        'react',
-        'redux',
-        'react-dom',
-        'react-redux',
-        'redux-logger',
-      ],
-      index: path.resolve('src', 'index.tsx')
-    },
+    // entry: {
+    //   vendor: [
+    //     'react',
+    //     'redux',
+    //     'react-dom',
+    //     'react-redux',
+    //     'redux-logger',
+    //   ],
+    //   index: path.resolve('src', 'index.tsx')
+    // },
+    entry: path.resolve('src', 'index.tsx'),
     optimization: {
       minimizer: [new UglifyJsPlugin()]
     },
