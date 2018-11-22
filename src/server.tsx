@@ -8,6 +8,7 @@ import { configureStore } from './store';
 import { html } from './html';
 import path from 'path';
 import App from './view/containers/app';
+import {Helmet} from 'react-helmet';
 // import cors from 'cors';
 
 const port = 3080;
@@ -62,7 +63,8 @@ function handleRender(req: Request, res: Response): void {
       </Provider>
   );
   const preloadedState = store.getState();
-  res.send(html(body, preloadedState));
+  const helmet = Helmet.renderStatic();
+  res.send(html(body, preloadedState, helmet));
 }
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

@@ -1,10 +1,13 @@
-export const html = (body, preloadedState) => `
+export const html = (body, preloadedState, helmet) => `
   <!DOCTYPE html>
   <html>
-    <head>
+    <head ${helmet.htmlAttributes.toString()}>
+      ${helmet.title.toString()}
+      ${helmet.meta.toString()}
+      ${helmet.link.toString()}
       <link href="/dist/main.css" rel="stylesheet"></head>
     </head>
-    <body>
+    <body ${helmet.bodyAttributes.toString()}>
       <div id="app">${body}</div>
     </body>
     <script>

@@ -16,6 +16,7 @@ import Search from './search';
 import Dashboard from './dashboard';
 import { isAppLoaded } from '../../store/reducers/application/ui-state/selectors';
 import LocaleProvider from 'antd/lib/locale-provider';
+import {Helmet} from 'react-helmet';
 
 const styles = require('./styles.less');
 import { RouteNames } from '../router';
@@ -54,6 +55,17 @@ class App extends React.PureComponent<IPropsComponents, void> {
     return (
         <LocaleProvider locale={ru_RU}>
           <React.Fragment>
+            <Helmet
+                htmlAttributes={{'lang': 'ru'}}
+                titleTemplate={'Найди своего психолога - %s'}
+                defaultTitle={'Найди своего психолога'}
+                meta={[
+                  {'name': 'theme-color', content: '#6accba'},
+                  {'name': 'viewport',
+                    content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'},
+                  {'name': 'description', 'content': 'Найди своего психолога'}
+                ]}
+            />
             <Header
                 currentUser={currentUsername}
                 isAuthenticated={isAuthenticated}
