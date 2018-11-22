@@ -18,8 +18,7 @@ npm-debug.log
 .DS_Store
 
 ### Settings ###
-/src/settings.ts
-/src/settings.js
+.env
 
 
 /coverage

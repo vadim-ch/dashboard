@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import { State } from '../../index';
 import { ProfileState} from './index';
-import { STORAGE_URL } from '../../../../api/requests';
 
 export const getProfile = (state: State): ProfileState => state.domainState.profile;
 

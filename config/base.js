@@ -5,8 +5,14 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const chalk = require('chalk');
+const dotenv = require('dotenv');
 
-// const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+const env = dotenv.config().parsed;
+
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[next] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 module.exports = function (env, __dirname) {
   console.info(
@@ -135,7 +141,8 @@ module.exports = function (env, __dirname) {
     plugins: [
       new webpack.DefinePlugin({
         __VERSION__: JSON.stringify(packageJson.version),
-        __SERVER__: false
+        __SERVER__: false,
+        ...envKeys
       }),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
