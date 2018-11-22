@@ -85,7 +85,12 @@ class Login extends React.PureComponent<IPropsComponents, {}> {
                   <Checkbox>Запомнить меня</Checkbox>
               )}
               <a className={styles.loginFormForgot} href="">Восстановить пароль</a>
-              <Button type="primary" htmlType="submit" className={styles.loginButton} loading={buttonLoading}>
+              <Button
+                  type="primary"
+                  htmlType="submit"
+                  className={styles.loginButton}
+                  loading={buttonLoading}
+              >
                 Войти
               </Button>
               или <Link to={RouteNames.Register}>Зарегистрироваться</Link>

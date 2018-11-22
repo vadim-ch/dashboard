@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = function (env) {
@@ -44,6 +43,7 @@ module.exports = function (env) {
           test: /\.*es.less/,
           exclude: '/node_modules',
           use: [
+            'isomorphic-style-loader',
             {
               loader: 'css-loader',
               query: {
@@ -52,35 +52,9 @@ module.exports = function (env) {
                 modules: true,
                 camelCase: true,
                 minimize: true,
-                localIdentName: '[path][name]__[local]'
+                localIdentName: env === 'dev' ? '[path][name]__[local]' : '[hash:base64]'
               }
             },
-            {
-              loader: 'less-loader',
-              options: {
-                javascriptEnabled: true
-              }
-            }
-            // {
-            //   loader: 'postcss-loader',
-            //   options: { plugins: function() { return [ require('autoprefixer')() ]} }
-            // }
-          ]
-        },
-        {
-          test: /\/global.less$/,
-          exclude: '/node_modules',
-          use: [
-            {
-              loader: 'css-loader',
-              query: {
-                minimize: true
-              }
-            },
-            // {
-            //   loader: 'postcss-loader',
-            //   options: { plugins: function() { return [ require('autoprefixer')() ]} }
-            // }
             {
               loader: 'less-loader',
               options: {
@@ -88,7 +62,7 @@ module.exports = function (env) {
               }
             }
           ]
-        }
+        },
       ]
     }
   }
