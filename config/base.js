@@ -85,7 +85,7 @@ module.exports = function (env, __dirname) {
                 modules: true,
                 camelCase: true,
                 minimize: true,
-                localIdentName: '[path][name]__[local]'
+                localIdentName: env === 'dev' ? '[path][name]__[local]' : '[hash:base64]'
               }
             },
             {
