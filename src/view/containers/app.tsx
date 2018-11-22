@@ -60,6 +60,7 @@ class App extends React.PureComponent<IPropsComponents, void> {
                 titleTemplate={'Найди своего психолога - %s'}
                 defaultTitle={'Найди своего психолога'}
                 meta={[
+                  {'name': 'yandex-verification', content: '7a0e09fae841aba1'},
                   {'name': 'theme-color', content: '#6accba'},
                   {'name': 'viewport',
                     content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'},

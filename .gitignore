@@ -6,7 +6,6 @@
 ### Build artifacts ###
 /public/dist
 /server-build
-/public/index.html
 /tmpBuild
 
 ### NPM files ###
