@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import express, { Request, Response } from 'express';
 import { StaticRouter, matchPath } from 'react-router-dom';
-import Root from './view';
 import { configureStore } from './store';
 import { html } from './html';
 import path from 'path';
@@ -11,6 +10,9 @@ import App from './view/containers/app';
 import {Helmet} from 'react-helmet';
 // import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import { isAuthenticated, isAuthPending } from './store/reducers/domain/account/selectors';
+import { getCurrentUser } from './store/actions/user/get-current-user-action';
+import { startApp } from './store/actions';
 
 const port = 3080;
 const app = express();
@@ -55,18 +57,31 @@ app.use((err, req, res, next) => {
 });
 
 function handleRender(req: Request, res: Response): void {
-  const { store } = configureStore(req.url);
-  const context = {};
-  const body = renderToString(
-      <Provider store={store}>
-        <StaticRouter location={req.url} context={context}>
-          <App/>
-        </StaticRouter>
-      </Provider>
-  );
-  const preloadedState = store.getState();
-  const helmet = Helmet.renderStatic();
-  res.send(html(body, preloadedState, helmet));
+  const { store } = configureStore(req.url, {
+    domainState: {
+      account: {
+        accessToken: req.cookies.at,
+        refreshToken: req.cookies.rt
+      }
+    }
+  });
+  store.dispatch(startApp());
+  const unsubscribe = store.subscribe(() => {
+    if (!isAuthPending(store.getState())) {
+      unsubscribe();
+      const context = {};
+      const body = renderToString(
+          <Provider store={store}>
+            <StaticRouter location={req.url} context={context}>
+              <App/>
+            </StaticRouter>
+          </Provider>
+      );
+      const preloadedState = store.getState();
+      const helmet = Helmet.renderStatic();
+      res.send(html(body, preloadedState, helmet));
+    }
+  });
 }
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

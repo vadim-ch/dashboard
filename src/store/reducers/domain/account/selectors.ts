@@ -19,6 +19,13 @@ export const isAuthPending = createSelector(
     }
 );
 
+export const getAccessToken = createSelector(
+    [getAccount],
+    (account: AccountState): string => {
+      return account.accessToken;
+    }
+);
+
 export const getRefreshToken = createSelector(
     [getAccount],
     (account: AccountState): string => {

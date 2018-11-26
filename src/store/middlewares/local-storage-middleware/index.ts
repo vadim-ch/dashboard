@@ -13,10 +13,6 @@ const Token = {
   Refresh: 'rt'
 };
 
-const setAuthToken = (token: string) => {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-};
-
 const accessStorage = new LocalStorage<string>(Token.Access);
 const refreshStorage = new LocalStorage<string>(Token.Refresh);
 
@@ -36,7 +32,7 @@ export const localStorageMiddleware = store => next => (
       action.payload.refreshToken = refreshStorage.item;
       // action.payload.accessToken = window.localStorage.getItem(Token.Access);
       // action.payload.refreshToken = window.localStorage.getItem(Token.Refresh);
-      setAuthToken(action.payload.accessToken);
+      // setAuthToken(action.payload.accessToken);
       return next(action);
     }
     case REGISTER:
@@ -47,7 +43,7 @@ export const localStorageMiddleware = store => next => (
         if (action.payload.accessToken) {
           accessStorage.item = action.payload.accessToken;
           // window.localStorage.setItem(Token.Access, action.payload.accessToken);
-          setAuthToken(action.payload.accessToken);
+          // setAuthToken(action.payload.accessToken);
         }
         if (action.payload.refreshToken) {
           refreshStorage.item = action.payload.refreshToken;
@@ -60,7 +56,7 @@ export const localStorageMiddleware = store => next => (
       if (action.status === RequestStatus.Complete) {
         accessStorage.clear();
         refreshStorage.clear();
-        setAuthToken('');
+        // setAuthToken('');
       }
       return next(action);
     }

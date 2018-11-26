@@ -1,9 +1,15 @@
 import { RequestAction, RequestStatus } from '../../../api/types';
+import axios from 'axios';
+import { getAccessToken } from '../../reducers/domain/account/selectors';
+const setAuthToken = (token: string) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};
 
 export const apiMiddleware = store => next => async (action: RequestAction<any>) => {
   const dispatch = store.dispatch;
   if (action.request) {
     const {request: apiRequest} = action;
+    const accessToken = getAccessToken(store.getState());
     // setTimeout(() => {
     //   apiRequest.request
     //       .then(response => next({
@@ -17,6 +23,7 @@ export const apiMiddleware = store => next => async (action: RequestAction<any>)
     //         status: RequestStatus.Error
     //       }));
     // }, 5000);
+    setAuthToken(accessToken);
     apiRequest.request
         .then(response => next({
           ...action,

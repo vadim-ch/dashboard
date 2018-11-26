@@ -27,19 +27,8 @@ export class ApiRequest<ResponseT> implements IBaseRequest {
     this._props = queryOrBodyParams;
     this._path = path;
     this._formData = formData;
-    // if (queryOrBodyParams instanceof FormData) {
-    //   this._config = {
-    //     ...this._config,
-    //     headers: {
-    //       'content-type': 'multipart/form-data'
-    //     }
-    //   };
-    // }
-    // this._config = {
-    //
-    //   credentials: 'same-origin'
-    // };
     axios.defaults.baseURL = API_URL;
+    axios.defaults.withCredentials = true;
   }
 
   public get request(): Promise<ResponseT> {

@@ -20,13 +20,19 @@ export const configureStore = (url: string = '/', initialState?: object): { stor
   let middlewares = [
     routerMiddleware(history),
     apiMiddleware,
-    localStorageMiddleware,
     requestNotificationsMiddleware,
     authMiddleware
   ];
+  const clientMiddlewares = [
+    localStorageMiddleware
+  ];
 
   if (__DEV__ && !__SERVER__) {
-    middlewares = [...middlewares, createLogger()];
+    middlewares = [
+      ...middlewares,
+        ...__SERVER__ ? [] : clientMiddlewares,
+      createLogger()
+    ];
   }
 
   const store = createStore(
