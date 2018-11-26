@@ -10,6 +10,7 @@ import path from 'path';
 import App from './view/containers/app';
 import {Helmet} from 'react-helmet';
 // import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const port = 3080;
 const app = express();
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // app.use(cors());
 // app.use(bodyParser.json());
+app.use(cookieParser());
 const manifestPath = path.join('public', 'dist');
 
 app.use(handleRender);

@@ -35,6 +35,10 @@ export class ApiRequest<ResponseT> implements IBaseRequest {
     //     }
     //   };
     // }
+    this._config = {
+
+      credentials: 'same-origin'
+    };
     axios.defaults.baseURL = API_URL;
   }
 
