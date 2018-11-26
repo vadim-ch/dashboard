@@ -18,7 +18,7 @@ const setAuthToken = (token: string) => {
 };
 
 const accessStorage = new LocalStorage<string>(Token.Access);
-const refreshStorage = new LocalStorage<string>(Token.Access);
+const refreshStorage = new LocalStorage<string>(Token.Refresh);
 
 export const localStorageMiddleware = store => next => (
     action:
