@@ -10,7 +10,7 @@ import App from './view/containers/app';
 import {Helmet} from 'react-helmet';
 // import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { isAuthenticated, isAuthPending } from './store/reducers/domain/account/selectors';
+import { getAccount, isAuthenticated, isAuthPending } from './store/reducers/domain/account/selectors';
 import { getCurrentUser } from './store/actions/user/get-current-user-action';
 import { startApp } from './store/actions';
 
@@ -56,7 +56,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-function handleRender(req: Request, res: Response): void {
+function handleRender(req: Request, res: Response, next: (e: any) => void): void {
   const { store } = configureStore(req.url, {
     domainState: {
       account: {
@@ -70,16 +70,20 @@ function handleRender(req: Request, res: Response): void {
     if (!isAuthPending(store.getState())) {
       unsubscribe();
       const context = {};
-      const body = renderToString(
-          <Provider store={store}>
-            <StaticRouter location={req.url} context={context}>
-              <App/>
-            </StaticRouter>
-          </Provider>
-      );
-      const preloadedState = store.getState();
-      const helmet = Helmet.renderStatic();
-      res.send(html(body, preloadedState, helmet));
+      try {
+        const body = renderToString(
+            <Provider store={store}>
+              <StaticRouter location={req.url} context={context}>
+                <App/>
+              </StaticRouter>
+            </Provider>
+        );
+        const preloadedState = store.getState();
+        const helmet = Helmet.renderStatic();
+        res.send(html(body, preloadedState, helmet));
+      } catch (e) {
+        next(e);
+      }
     }
   });
 }

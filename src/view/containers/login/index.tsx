@@ -93,7 +93,7 @@ class Login extends React.PureComponent<IPropsComponents, {}> {
               >
                 Войти
               </Button>
-              или <Link to={RouteNames.Register}>Зарегистрироваться</Link>
+              {/*или <Link to={RouteNames.Register}>Зарегистрироваться</Link>*/}
             </FormItem>
           </Form>
         </div>

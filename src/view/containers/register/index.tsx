@@ -106,7 +106,11 @@ class Register extends React.PureComponent<IPropsComponents, IState> {
                   <Checkbox>I have read the <a href="">agreement</a></Checkbox>
               )}
               <FormItem>
-                <Button className={styles.registerButton} type="primary" htmlType="submit">Зарегистрироваться</Button>
+                <Button
+                    className={styles.registerButton}
+                    type="primary"
+                    htmlType="submit"
+                >Зарегистрироваться</Button>
               </FormItem>
             </FormItem>
           </Form>

@@ -40,7 +40,7 @@ export interface IDispatchProps {
 type IPropsComponents = IStateProps & IDispatchProps;
 
 class App extends React.PureComponent<IPropsComponents, void> {
-  public componentWillMount(): void {
+  public componentDidMount(): void {
     this.props.actions.startApp();
   }
 
@@ -76,7 +76,7 @@ class App extends React.PureComponent<IPropsComponents, void> {
               <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route path={RouteNames.Login} component={Login}/>
-                <Route path={RouteNames.Register} component={Register}/>
+                {/*<Route path={RouteNames.Register} component={Register}/>*/}
                 <Route path={RouteNames.Search} component={Search}/>
                 {/*<Route path='/editor/:slug' component={Editor} />*/}
                 {/*<Route path='/editor' component={Editor} />*/}

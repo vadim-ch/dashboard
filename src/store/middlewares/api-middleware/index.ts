@@ -1,4 +1,4 @@
-import { RequestAction, RequestStatus } from '../../../api/types';
+import { RequestAction, RequestErrors, RequestStatus } from '../../../api/types';
 import axios from 'axios';
 import { getAccessToken } from '../../reducers/domain/account/selectors';
 const setAuthToken = (token: string) => {
@@ -31,11 +31,13 @@ export const apiMiddleware = store => next => async (action: RequestAction<any>)
           status: RequestStatus.Complete
         }))
         .catch(error => {
+          let errorData: RequestErrors = {};
           if (error.response) {
             // Запрос был сделан и сервер ответил кодом отличным от 2xx
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
+            errorData = error.response.data;
           } else if (error.request) {
             // Запрос был сделан, но ответ не получен
             // `error.request` is an instance of XMLHttpRequest in the browser
@@ -43,10 +45,11 @@ export const apiMiddleware = store => next => async (action: RequestAction<any>)
           } else {
             // Прочие ошибки
             console.log('Error', error.message);
+            errorData = error.message;
           }
           return next({
             ...action,
-            errors: error,
+            errors: errorData,
             status: RequestStatus.Error
           });
         });

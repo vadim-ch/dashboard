@@ -15,11 +15,11 @@ export class Navigation extends React.PureComponent<IProps, {}> {
   public render(): JSX.Element {
     return (
         <nav className={styles.nav}>
-          <Button className={styles.registerButton} size="large">
-            <Link to={RouteNames.Register}>
-              Зарегистрироваться
-            </Link>
-          </Button>
+          {/*<Button className={styles.registerButton} size="large">*/}
+            {/*<Link to={RouteNames.Register}>*/}
+              {/*Зарегистрироваться*/}
+            {/*</Link>*/}
+          {/*</Button>*/}
           <div className={styles.accountMenu}>
             <Button type="primary" className={styles.searchButton} size="large">
               <Link to={RouteNames.Login}>
