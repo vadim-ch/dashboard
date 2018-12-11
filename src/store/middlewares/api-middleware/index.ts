@@ -1,6 +1,7 @@
 import { RequestAction, RequestErrors, RequestStatus } from '../../../api/types';
 import axios from 'axios';
 import { getAccessToken } from '../../reducers/domain/account/selectors';
+
 const setAuthToken = (token: string) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };

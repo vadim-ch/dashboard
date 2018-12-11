@@ -17,13 +17,12 @@ export class EmailSignin extends ApiRequest<LoginResponseType> {
     return super.request.then(response => {
       const {accessToken, refreshToken} = response;
       const decodedJwt = jwtDecode(accessToken);
-      const {sub: id, email, firstName, lastName, middleName} = decodedJwt as any;
+      const {sub: userId, email, profileId, role} = decodedJwt as any;
       return {
-        userId: id,
+        userId,
+        profileId,
         email,
-        firstName,
-        lastName,
-        middleName,
+        role,
         accessToken,
         refreshToken
       };

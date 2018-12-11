@@ -1,13 +1,13 @@
-import {REGISTER, RegisterAction} from '../../actions/auth/register';
-import {LOGIN, LoginAction} from '../../actions/auth/login';
-import {LogoutAction} from '../../actions/auth/logout';
-import {START_APP, StartAppAction} from '../../actions/start-app';
-import {RefreshTokenAction} from '../../actions/auth/refresh-token';
-import {RequestStatus} from '../../../api/types';
-import {RouteNames} from '../../../view/router';
-import {push} from 'connected-react-router';
-import { getCurrentUser } from '../../actions/user/get-current-user-action';
-import {EMAIL_SIGIN, emailSignin, EmailSigninAction} from '../../actions/auth/email-signin';
+import { REGISTER, RegisterAction } from '../../actions/auth/register';
+import { LOGIN, LoginAction } from '../../actions/auth/login';
+import { LogoutAction } from '../../actions/auth/logout';
+import { START_APP, StartAppAction } from '../../actions/start-app';
+import { RefreshTokenAction } from '../../actions/auth/refresh-token';
+import { RequestStatus } from '../../../api/types';
+import { RouteNames } from '../../../view/router';
+import { push } from 'connected-react-router';
+import { getCurrentUser } from '../../actions/auth/get-current-user-action';
+import { EMAIL_SIGIN, emailSignin, EmailSigninAction } from '../../actions/auth/email-signin';
 
 export const authMiddleware = store => next => async (
     action:

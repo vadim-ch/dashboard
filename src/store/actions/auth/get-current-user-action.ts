@@ -1,5 +1,5 @@
 import { ActionCreator } from 'redux';
-import { RequestAction } from '../../../api/types';
+import { RequestAction } from '../../../api/types/index';
 import { GetCurrentUser, GetCurrentUserResponseType } from '../../../api/requests/auth/get-current';
 
 export const GET_CURRENT_USER = 'get-current-user';

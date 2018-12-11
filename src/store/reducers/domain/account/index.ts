@@ -6,12 +6,13 @@ import { REGISTER, RegisterAction } from '../../../actions/auth/register';
 import { GetUserAction } from '../../../actions/user/get-user-action';
 import { StartAppAction } from '../../../actions/start-app';
 import { UpdateUserAction } from '../../../actions/user/update-user-action';
-import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/user/get-current-user-action';
+import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/auth/get-current-user-action';
 import { EMAIL_SIGIN, EmailSigninAction } from '../../../actions/auth/email-signin';
 
 const initialState = {
   userId: '',
   email: '',
+  profileId: '',
   accessToken: '',
   refreshToken: '',
   errors: undefined,
@@ -21,6 +22,7 @@ const initialState = {
 export interface AccountState extends RequestState {
   userId: string;
   email: string;
+  profileId: string;
   accessToken: string;
   refreshToken: string;
 }
@@ -42,36 +44,15 @@ export function account(
     case REGISTER:
     case REFRESH_TOKEN:
     case EMAIL_SIGIN:
+    case GET_CURRENT_USER:
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         return {
           ...state,
           userId: action.payload.userId,
+          profileId: action.payload.profileId,
           accessToken: action.payload.accessToken,
           refreshToken: action.payload.refreshToken,
-          status: action.status
-        };
-      }
-      if (action.status === RequestStatus.Pending) {
-        return {
-          ...state,
-          status: action.status
-        };
-      }
-      if (action.status === RequestStatus.Error) {
-        return {
-          ...state,
-          status: action.status,
-          errors: action.errors
-        };
-      }
-      return state;
-    }
-    case GET_CURRENT_USER: {
-      if (action.status === RequestStatus.Complete) {
-        return {
-          ...state,
-          userId: action.payload.userId,
           status: action.status
         };
       }

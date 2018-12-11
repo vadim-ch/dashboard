@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import {Store} from 'redux';
-import {hydrate} from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import { Store } from 'redux';
+import { hydrate } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Root from './view/index';
 import { State } from './store/reducers';
 

@@ -17,13 +17,12 @@ export class Login extends ApiRequest<LoginResponseType> {
   public get request(): Promise<LoginResponseType> {
     return super.request.then(response => {
       const {accessToken, refreshToken} = response;
-      const {sub: id, email, firstName, lastName, middleName} = jwtDecode(accessToken);
+      const {sub: userId, profileId, email, role} = jwtDecode(accessToken);
       return {
-        userId: id,
+        userId,
+        profileId,
         email,
-        firstName,
-        lastName,
-        middleName,
+        role,
         accessToken,
         refreshToken
       };

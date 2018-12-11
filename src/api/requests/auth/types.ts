@@ -1,11 +1,13 @@
 export type AuthResponseType = {
   accessToken?: string;
   refreshToken?: string;
-  firstName?: string;
-  lastName?: string;
-  middleName?: string;
+  // firstName?: string;
+  // lastName?: string;
+  // middleName?: string;
   userId: string;
   email: string;
+  profileId: string;
+  role: string;
 };
 
 export const AuthPath = {

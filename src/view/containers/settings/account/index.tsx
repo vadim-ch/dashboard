@@ -61,7 +61,7 @@ interface IState {
 
 const dateFormat = 'D MMMM YYYY';
 
-class MainSettings extends React.PureComponent<IPropsComponents, IState> {
+class AccountSettings extends React.PureComponent<IPropsComponents, IState> {
   constructor(props: IPropsComponents) {
     super(props);
   }
@@ -86,44 +86,30 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
           </SubPanel>
           <Panel>
             <DashboardContainer>
-              Личная информация
+              Смена пароля
               <br/>
               <br/>
               <Form layout="vertical" style={{'maxWidth': '600px'}} onSubmit={this.handleSubmit}>
                 <AvatarUploader onUploaded={this.onUploadedFile} initialImageUrl={avatar}/>
-                <FormItem {...formItemLayout} label="Имя">
-                  {getFieldDecorator('firstName')(<Input/>)}
+                <FormItem {...formItemLayout} label="Текущий пароль">
+                  {getFieldDecorator('oldPassword')(<Input/>)}
                 </FormItem>
 
-                <FormItem {...formItemLayout} label="Фамилия">
-                  {getFieldDecorator('lastName')(<Input type="textarea"/>)}
+                <FormItem {...formItemLayout} label="Новый пароль">
+                  {getFieldDecorator('password')(<Input type="textarea"/>)}
                 </FormItem>
-
-                <FormItem {...formItemLayout} label="Отчество">
-                  {getFieldDecorator('middleName')(<Input type="textarea"/>)}
-                </FormItem>
-                <FormItem {...formItemLayout} label="Пол">
-                  {getFieldDecorator('gender')(
-                      <Radio.Group>
-                        <Radio value="male">Мужской</Radio>
-                        <Radio value="female">Женский</Radio>
-                      </Radio.Group>
+                <FormItem
+                    label="Ещё раз новый пароль"
+                >
+                  {getFieldDecorator('confirm', {
+                    rules: [{
+                      required: true, message: 'Please confirm your password!'
+                    }, {
+                      validator: this.compareToFirstPassword
+                    }]
+                  })(
+                      <Input type="password" onBlur={this.handleConfirmBlur}/>
                   )}
-                </FormItem>
-                <FormItem {...formItemLayout} label="Дата рождения">
-                  {getFieldDecorator('birthday', {
-                    initialValue: moment('1980/01/01', dateFormat)
-                  })(<DatePicker format={dateFormat}/>)}
-                </FormItem>
-                <FormItem {...formItemLayout} label="Местоположение">
-                  {getFieldDecorator('location', {
-                    initialValue: ''
-                  })(<Input/>)}
-                </FormItem>
-                <FormItem {...formItemLayout} label="О себе">
-                  {getFieldDecorator('about', {
-                    initialValue: ''
-                  })(<TextArea className={styles.about} autosize/>)}
                 </FormItem>
                 <Button style={{display: 'none'}} type="primary" htmlType="submit">Сохранить</Button>
               </Form>

@@ -11,13 +11,12 @@ export class GetCurrentUser extends ApiRequest<GetCurrentUserResponseType> {
 
   public get request(): Promise<GetCurrentUserResponseType> {
     return super.request.then(response => {
-      const {sub: userId, firstName, lastName, middleName, email} = response as any;
+      const {userId, email, profileId, role} = response;
       return {
         userId,
-        email,
-        firstName,
-        lastName,
-        middleName
+        profileId,
+        role,
+        email
       };
     });
   }

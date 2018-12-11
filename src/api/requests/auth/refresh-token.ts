@@ -16,13 +16,12 @@ export class RefreshToken extends ApiRequest<RefreshTokenResponseType> {
   public get request(): Promise<RefreshTokenResponseType> {
     return super.request.then(response => {
       const {accessToken, refreshToken} = response;
-      const {sub: userId, email, firstName, lastName, middleName} = jwtDecode(accessToken);
+      const {sub: userId, email, profileId, role} = jwtDecode(accessToken);
       return {
         userId,
         email,
-        firstName,
-        lastName,
-        middleName,
+        profileId,
+        role,
         accessToken,
         refreshToken
       };

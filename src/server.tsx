@@ -7,11 +7,10 @@ import { configureStore } from './store';
 import { html } from './html';
 import path from 'path';
 import App from './view/containers/app';
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
 // import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { getAccount, isAuthenticated, isAuthPending } from './store/reducers/domain/account/selectors';
-import { getCurrentUser } from './store/actions/user/get-current-user-action';
+import { isAuthPending } from './store/reducers/domain/account/selectors';
 import { startApp } from './store/actions';
 
 const port = 3080;
@@ -57,7 +56,7 @@ app.use((err, req, res, next) => {
 });
 
 function handleRender(req: Request, res: Response, next: (e: any) => void): void {
-  const { store } = configureStore(req.url, {
+  const {store} = configureStore(req.url, {
     domainState: {
       account: {
         accessToken: req.cookies.at,
