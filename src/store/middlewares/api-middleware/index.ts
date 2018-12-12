@@ -11,20 +11,9 @@ export const apiMiddleware = store => next => async (action: RequestAction<any>)
   if (action.request) {
     const {request: apiRequest} = action;
     const accessToken = getAccessToken(store.getState());
-    // setTimeout(() => {
-    //   apiRequest.request
-    //       .then(response => next({
-    //         ...action,
-    //         payload: response,
-    //         status: RequestStatus.Complete
-    //       }))
-    //       .catch(response => next({
-    //         ...action,
-    //         errors: response,
-    //         status: RequestStatus.Error
-    //       }));
-    // }, 5000);
-    setAuthToken(accessToken);
+    if (accessToken) {
+      setAuthToken(accessToken);
+    }
     apiRequest.request
         .then(response => next({
           ...action,

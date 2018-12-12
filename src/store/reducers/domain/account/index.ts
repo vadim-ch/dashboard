@@ -3,9 +3,9 @@ import { LogoutAction } from '../../../actions/auth/logout';
 import { REFRESH_TOKEN, RefreshTokenAction } from '../../../actions/auth/refresh-token';
 import { RequestState, RequestStatus } from '../../../../api/types';
 import { REGISTER, RegisterAction } from '../../../actions/auth/register';
-import { GetUserAction } from '../../../actions/user/get-user-action';
-import { StartAppAction } from '../../../actions/start-app';
-import { UpdateUserAction } from '../../../actions/user/update-user-action';
+import { GetProfileAction } from '../../../actions/user/get-profile-action';
+import { START_APP, StartAppAction } from '../../../actions/start-app';
+import { UpdateProfileAction } from '../../../actions/user/update-profile-action';
 import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/auth/get-current-user-action';
 import { EMAIL_SIGIN, EmailSigninAction } from '../../../actions/auth/email-signin';
 
@@ -35,8 +35,8 @@ export function account(
         RegisterAction |
         LogoutAction |
         RefreshTokenAction |
-        GetUserAction |
-        UpdateUserAction |
+        GetProfileAction |
+        UpdateProfileAction |
         GetCurrentUserAction |
         EmailSigninAction
 ): AccountState {
@@ -44,7 +44,6 @@ export function account(
     case REGISTER:
     case REFRESH_TOKEN:
     case EMAIL_SIGIN:
-    case GET_CURRENT_USER:
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         return {
@@ -67,6 +66,22 @@ export function account(
           ...state,
           status: action.status,
           errors: action.errors
+        };
+      }
+      return state;
+    }
+    case START_APP: {
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken
+      };
+    }
+    case GET_CURRENT_USER: {
+      if (action.status === RequestStatus.Complete) {
+        return {
+          ...state,
+          userId: action.payload.userId
         };
       }
       return state;

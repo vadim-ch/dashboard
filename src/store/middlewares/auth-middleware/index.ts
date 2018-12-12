@@ -21,6 +21,7 @@ export const authMiddleware = store => next => async (
   const dispatch = store.dispatch;
   switch (action.type) {
     case START_APP: {
+      const result = next(action);
       let token;
       if (typeof window !== 'undefined') {
         const params = new URLSearchParams(window.location.search);
@@ -32,7 +33,7 @@ export const authMiddleware = store => next => async (
         dispatch(getCurrentUser());
       }
 
-      return next(action);
+      return result;
     }
 
       // case REFRESH_TOKEN: {

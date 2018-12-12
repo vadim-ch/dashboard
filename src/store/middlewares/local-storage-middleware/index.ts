@@ -7,6 +7,7 @@ import { RequestStatus } from '../../../api/types';
 import { REGISTER, RegisterAction } from '../../actions/auth/register';
 import {EMAIL_SIGIN, EmailSigninAction} from '../../actions/auth/email-signin';
 import { LocalStorage } from '../../../utils/storage';
+import { getAccessToken, getRefreshToken } from '../../reducers/domain/account/selectors';
 
 const Token = {
   Access: 'at',
@@ -28,8 +29,8 @@ export const localStorageMiddleware = store => next => (
   const dispatch = store.dispatch;
   switch (action.type) {
     case START_APP: {
-      action.payload.accessToken = accessStorage.item;
-      action.payload.refreshToken = refreshStorage.item;
+      action.payload.accessToken = action.payload.accessToken ? action.payload.accessToken : accessStorage.item;
+      action.payload.refreshToken = action.payload.refreshToken ? action.payload.refreshToken : refreshStorage.item;
       // action.payload.accessToken = window.localStorage.getItem(Token.Access);
       // action.payload.refreshToken = window.localStorage.getItem(Token.Refresh);
       // setAuthToken(action.payload.accessToken);

@@ -24,8 +24,8 @@ import DatePicker from 'antd/lib/date-picker';
 import Checkbox from 'antd/lib/checkbox';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import { getProfile } from '../../../../store/reducers/domain/profile/selectors';
-import { updateUser } from '../../../../store/actions';
 import {getApproachesTherapyList} from '../../../../store/reducers/domain/suggest/selectors';
+import { updateProfile } from '../../../../store/actions/user/update-profile-action';
 
 const CheckboxGroup = Checkbox.Group;
 const styles = require('./styles.less');
@@ -45,7 +45,7 @@ export interface IStateProps {
 
 export interface IDispatchProps {
   actions: {
-    updateUser: typeof updateUser;
+    updateProfile: typeof updateProfile;
   };
 }
 
@@ -135,7 +135,7 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
         console.log('specialization form: ', values);
         const {expertId} = this.props;
         const {qualifications, directionsTherapy} = values;
-        this.props.actions.updateUser(
+        this.props.actions.updateProfile(
             expertId,
             {
               qualifications,
@@ -174,7 +174,7 @@ const mapStateToProps = (state: State): IStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
   actions: bindActionCreators({
-    updateUser
+    updateProfile
   }, dispatch)
 });
 

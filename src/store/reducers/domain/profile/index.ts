@@ -1,6 +1,6 @@
 import { RequestState, RequestStatus } from '../../../../api/types';
-import { UPDATE_USER, UpdateUserAction } from '../../../actions/user/update-user-action';
-import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/auth/get-current-user-action';
+import { UPDATE_PROFILE, UpdateProfileAction } from '../../../actions/user/update-profile-action';
+import { GET_PROFILE, GetProfileAction } from '../../../actions/user/get-profile-action';
 
 const initialState = {
   expertId: '',
@@ -44,10 +44,11 @@ export interface ProfileState extends RequestState {
 
 export function profile(
     state: ProfileState = initialState,
-    action: UpdateUserAction
+    action: UpdateProfileAction | GetProfileAction
 ): ProfileState {
   switch (action.type) {
-    case UPDATE_USER: {
+    case GET_PROFILE:
+    case UPDATE_PROFILE: {
       if (action.status === RequestStatus.Complete) {
         return {
           ...state,

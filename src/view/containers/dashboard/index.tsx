@@ -19,6 +19,8 @@ import { DashboardRouteNames, RouteNames } from '../../router';
 import Register from '../register';
 import Search from '../search';
 import DashboardHome from '../dashboard-home';
+import { updateProfile } from '../../../store/actions/user/update-profile-action';
+import { getProfile } from '../../../store/actions/user/get-profile-action';
 
 const styles = require('./styles.less');
 
@@ -29,12 +31,18 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  actions: any;
+  actions: {
+    getProfile: typeof getProfile;
+  };
 }
 
 type IPropsComponents = IStateProps & IDispatchProps;
 
 class Dashboard extends React.PureComponent<IPropsComponents, void> {
+  public componentDidMount(): void {
+    this.props.actions.getProfile();
+  }
+
   public render(): JSX.Element {
     const {cabinetsPending, cabinets} = this.props;
     // const { from } = this.props['location'].state || { from: { pathname: '/' } };
@@ -77,7 +85,9 @@ const mapStateToProps = (state: State): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
-  actions: bindActionCreators<any, any>(actions, dispatch)
+  actions: bindActionCreators({
+    getProfile
+  }, dispatch)
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps as any)(Dashboard as any));

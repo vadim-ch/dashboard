@@ -56,15 +56,10 @@ app.use((err, req, res, next) => {
 });
 
 function handleRender(req: Request, res: Response, next: (e: any) => void): void {
-  const {store} = configureStore(req.url, {
-    domainState: {
-      account: {
-        accessToken: req.cookies.at,
-        refreshToken: req.cookies.rt
-      }
-    }
-  });
-  store.dispatch(startApp());
+  const accessToken = req.cookies['at'];
+  const refreshToken = req.cookies['rt'];
+  const {store} = configureStore(req.url);
+  store.dispatch(startApp(accessToken, refreshToken));
   const unsubscribe = store.subscribe(() => {
     if (!isAuthPending(store.getState())) {
       unsubscribe();

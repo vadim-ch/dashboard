@@ -1,4 +1,4 @@
-export type UserResponseType = {
+export type ProfileResponseType = {
   firstName: string;
   lastName: string;
   middleName: string;
@@ -14,7 +14,6 @@ export type UserResponseType = {
 };
 
 export const UserPath = {
-  Get: 'experts',
-  Put: 'experts',
-  GetAll: 'experts'
+  Get: 'profile',
+  Put: 'profile'
 };

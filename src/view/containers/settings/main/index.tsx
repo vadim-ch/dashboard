@@ -25,8 +25,8 @@ import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import moment from 'moment';
 import { AvatarUploader } from '../../../components/image-uploader';
-import { updateUser } from '../../../../store/actions';
 import { getAvatarUrl, getProfile } from '../../../../store/reducers/domain/profile/selectors';
+import { updateProfile } from '../../../../store/actions/user/update-profile-action';
 
 const styles = require('./styles.less');
 
@@ -47,7 +47,7 @@ export interface IStateProps {
 
 export interface IDispatchProps {
   actions: {
-    updateUser: typeof updateUser;
+    updateProfile: typeof updateProfile;
   };
 }
 
@@ -145,7 +145,7 @@ class MainSettings extends React.PureComponent<IPropsComponents, IState> {
         const {expertId} = this.props;
         const {file: avatar} = this.state;
         const {firstName, lastName} = values;
-        this.props.actions.updateUser(
+        this.props.actions.updateProfile(
             expertId,
             {
               firstName,
@@ -201,7 +201,7 @@ const mapStateToProps = (state: State): IStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
   actions: bindActionCreators({
-    updateUser
+    updateProfile
   }, dispatch)
 });
 // const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => bindActionCreators({

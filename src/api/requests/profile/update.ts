@@ -1,5 +1,5 @@
 import { ApiRequest, ApiRequestType } from '../index';
-import { UserPath, UserResponseType } from './types';
+import { UserPath, ProfileResponseType } from './types';
 
 export type UpdateUserType = {
   firstName?: string;
@@ -15,15 +15,12 @@ export type UpdateUserType = {
   requestsTherapy?: Array<string>;
 };
 
-export interface UpdateUserResponseType extends UserResponseType {
-}
-
-export class UpdateUser extends ApiRequest<UpdateUserResponseType> {
-  constructor(id: string, props: UpdateUserType) {
-    super(ApiRequestType.Put, `${UserPath.Put}/${id}`, props, true);
+export class UpdateProfile extends ApiRequest<ProfileResponseType> {
+  constructor(props: UpdateUserType) {
+    super(ApiRequestType.Put, `${UserPath.Put}`, props, true);
   }
 
-  public get request(): Promise<UpdateUserResponseType> {
+  public get request(): Promise<ProfileResponseType> {
     return super.request.then(response => {
       const {id, firstName, lastName, email} = response;
       return {
