@@ -7,20 +7,15 @@ import { State } from '../../../store/reducers/index';
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router-dom';
 import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
+import notification from 'antd/lib/notification';
 import { getCabinets, isCabinetsPending } from '../../../store/reducers/domain/cabinets/selectors';
 import { GetAllCabinetsResponseType } from '../../../api/requests/cabinet/get-all-cabinets';
 import { Link } from 'react-router-dom';
 import Sidebar from '../sidebar';
 import { dashboardRoutes } from '../../router/routes';
-import Login from '../login';
-import Home from '../home';
-import { DashboardRouteNames, RouteNames } from '../../router';
-import Register from '../register';
-import Search from '../search';
-import DashboardHome from '../dashboard-home';
-import { updateProfile } from '../../../store/actions/user/update-profile-action';
 import { getProfile } from '../../../store/actions/user/get-profile-action';
+import { DashboardRouteNames, RouteNames, SettingsRouteNames } from '../../router';
+import { push } from 'connected-react-router';
 
 const styles = require('./styles.less');
 
@@ -28,11 +23,13 @@ export interface IStateProps {
   isAuthenticated: boolean;
   cabinetsPending: boolean;
   cabinets: GetAllCabinetsResponseType;
+  isPasswordExist: boolean;
 }
 
 export interface IDispatchProps {
   actions: {
     getProfile: typeof getProfile;
+    push: typeof push;
   };
 }
 
@@ -41,6 +38,19 @@ type IPropsComponents = IStateProps & IDispatchProps;
 class Dashboard extends React.PureComponent<IPropsComponents, void> {
   public componentDidMount(): void {
     this.props.actions.getProfile();
+    if (!this.props.isPasswordExist) {
+      const args = {
+        message: 'Задайте пароль',
+        description:
+            <span>Необходимо <a
+                  onClick={() =>
+                      this.props.actions.push(`${DashboardRouteNames.Settings}${SettingsRouteNames.Account}`)}>
+                задать пароль
+              </a></span>,
+        duration: 0
+      };
+      notification.open(args);
+    }
   }
 
   public render(): JSX.Element {
@@ -80,13 +90,15 @@ const mapStateToProps = (state: State): IStateProps => {
   return {
     isAuthenticated: isAuthenticated(state),
     cabinetsPending: isCabinetsPending(state),
-    cabinets: getCabinets(state).list
+    cabinets: getCabinets(state).list,
+    isPasswordExist: state.domainState.account.isPasswordExist
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
   actions: bindActionCreators({
-    getProfile
+    getProfile,
+    push
   }, dispatch)
 });
 

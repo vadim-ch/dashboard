@@ -40,6 +40,10 @@ const menuList = [
     path: `${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`
   },
   {
+    title: `Аккаунт`,
+    path: `${DashboardRouteNames.Settings}${SettingsRouteNames.Account}`
+  },
+  {
     title: `Специализация`,
     path: `${DashboardRouteNames.Settings}${SettingsRouteNames.Specialization}`
   }

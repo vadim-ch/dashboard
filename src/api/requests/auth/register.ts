@@ -17,13 +17,14 @@ export class Register extends ApiRequest<RegisterResponseType>  {
 
   public get request(): Promise<RegisterResponseType> {
     return super.request.then(response => {
-      const {accessToken, refreshToken} = response;
+      const {accessToken, refreshToken, isPasswordExist} = response;
       const {sub: userId, email, profileId, role} = jwtDecode(accessToken);
       return {
         userId,
         email,
         profileId,
         role,
+        isPasswordExist,
         accessToken,
         refreshToken
       };

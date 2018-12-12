@@ -8,7 +8,7 @@ export class LocalStorage<ST> {
   }
 
   public get item(): ST {
-    if (typeof window !== 'undefined' && window.localStorage) {
+    if (typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem(this._name)) {
       return JSON.parse(window.localStorage.getItem(this._name));
     }
     return null;

@@ -15,6 +15,7 @@ const initialState = {
   profileId: '',
   accessToken: '',
   refreshToken: '',
+  isPasswordExist: false,
   errors: undefined,
   status: RequestStatus.Complete
 };
@@ -25,6 +26,7 @@ export interface AccountState extends RequestState {
   profileId: string;
   accessToken: string;
   refreshToken: string;
+  isPasswordExist: boolean;
 }
 
 export function account(
@@ -52,6 +54,7 @@ export function account(
           profileId: action.payload.profileId,
           accessToken: action.payload.accessToken,
           refreshToken: action.payload.refreshToken,
+          isPasswordExist: action.payload.isPasswordExist,
           status: action.status
         };
       }

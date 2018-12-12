@@ -16,9 +16,10 @@ export const DashboardRouteNames = {
 };
 
 export const SettingsRouteNames = {
-  Main: '',
+  Main: '/profile',
   Notifications: '/notifications',
-  Specialization: '/specialization'
+  Specialization: '/specialization',
+  Account: '/account'
 };
 
 export const CabinetsRouteNames = {

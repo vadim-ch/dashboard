@@ -8,6 +8,7 @@ export type AuthResponseType = {
   email: string;
   profileId: string;
   role: string;
+  isPasswordExist: boolean;
 };
 
 export const AuthPath = {

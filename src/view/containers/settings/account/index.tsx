@@ -90,7 +90,6 @@ class AccountSettings extends React.PureComponent<IPropsComponents, IState> {
               <br/>
               <br/>
               <Form layout="vertical" style={{'maxWidth': '600px'}} onSubmit={this.handleSubmit}>
-                <AvatarUploader onUploaded={this.onUploadedFile} initialImageUrl={avatar}/>
                 <FormItem {...formItemLayout} label="Текущий пароль">
                   {getFieldDecorator('oldPassword')(<Input/>)}
                 </FormItem>

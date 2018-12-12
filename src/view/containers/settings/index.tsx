@@ -17,6 +17,7 @@ import { Title } from '../../components/title';
 import MainSettings from './main';
 import NotificationSettings from './notification';
 import SpecializationSettings from './specialization';
+import AccountSettings from './account';
 import { HeadWrapper } from '../../components/head-wrapper';
 import { dashboardRoutes } from '../../router/routes';
 import {getCurrentUsername} from '../../../store/reducers/domain/profile/selectors';
@@ -69,10 +70,18 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
         </DashboardContainer>
 
         <Switch>
+          <Redirect
+              exact
+              from={`${DashboardRouteNames.Settings}`}
+              to={`${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`}
+          />
           <Route
-            exact={true}
             path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Main}`}
             component={props => <MainSettings {...props} wrappedComponentRef={this.saveFormRef}/>}
+          />
+          <Route
+            path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Account}`}
+            component={AccountSettings}
           />
           <Route
             path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`}

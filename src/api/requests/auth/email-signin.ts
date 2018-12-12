@@ -15,7 +15,7 @@ export class EmailSignin extends ApiRequest<LoginResponseType> {
 
   public get request(): Promise<LoginResponseType> {
     return super.request.then(response => {
-      const {accessToken, refreshToken} = response;
+      const {accessToken, refreshToken, isPasswordExist} = response;
       const decodedJwt = jwtDecode(accessToken);
       const {sub: userId, email, profileId, role} = decodedJwt as any;
       return {
@@ -23,6 +23,7 @@ export class EmailSignin extends ApiRequest<LoginResponseType> {
         profileId,
         email,
         role,
+        isPasswordExist,
         accessToken,
         refreshToken
       };
