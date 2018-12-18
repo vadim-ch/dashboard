@@ -132,7 +132,6 @@ class SpecializationSettings extends React.PureComponent<IPropsComponents, {}> {
   private submitForm = (): void => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('specialization form: ', values);
         const {expertId} = this.props;
         const {qualifications, directionsTherapy} = values;
         this.props.actions.updateProfile(

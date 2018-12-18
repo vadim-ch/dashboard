@@ -81,7 +81,7 @@ class Settings extends React.PureComponent<IPropsComponents, {}> {
           />
           <Route
             path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Account}`}
-            component={AccountSettings}
+            component={props => <AccountSettings {...props} wrappedComponentRef={this.saveFormRef}/>}
           />
           <Route
             path={`${DashboardRouteNames.Settings}${SettingsRouteNames.Notifications}`}

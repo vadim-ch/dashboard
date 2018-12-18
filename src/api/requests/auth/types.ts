@@ -17,5 +17,6 @@ export const AuthPath = {
   Logout: 'logout',
   Register: 'register/expert',
   RefreshToken: 'refresh-token',
-  GetCurrent: 'current-user'
+  GetCurrent: 'current-user',
+  PutAccount: 'account'
 };

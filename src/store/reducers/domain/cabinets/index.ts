@@ -1,5 +1,4 @@
 import { RequestState, RequestStatus } from '../../../../api/types';
-import { GET_ALL_EXPERTS, GetAllExpertsAction } from '../../../actions/user/get-all-experts';
 import { GetAllCabinetsResponseType } from '../../../../api/requests/cabinet/get-all-cabinets';
 
 const initialState = {
@@ -14,32 +13,32 @@ export interface CabinetsState extends RequestState {
 
 export function cabinets(
     state: CabinetsState = initialState,
-    action: GetAllExpertsAction
+    action: any
 ): CabinetsState {
   switch (action.type) {
-    case GET_ALL_EXPERTS: {
-      if (action.status === RequestStatus.Complete) {
-        return {
-          ...state,
-          list: action.payload,
-          status: action.status
-        };
-      }
-      if (action.status === RequestStatus.Pending) {
-        return {
-          ...state,
-          status: action.status
-        };
-      }
-      if (action.status === RequestStatus.Error) {
-        return {
-          ...state,
-          status: action.status,
-          errors: action.errors
-        };
-      }
-      return state;
-    }
+    // case GET_ALL_EXPERTS: {
+    //   if (action.status === RequestStatus.Complete) {
+    //     return {
+    //       ...state,
+    //       list: action.payload,
+    //       status: action.status
+    //     };
+    //   }
+    //   if (action.status === RequestStatus.Pending) {
+    //     return {
+    //       ...state,
+    //       status: action.status
+    //     };
+    //   }
+    //   if (action.status === RequestStatus.Error) {
+    //     return {
+    //       ...state,
+    //       status: action.status,
+    //       errors: action.errors
+    //     };
+    //   }
+    //   return state;
+    // }
     default:
       return state;
   }

@@ -1,38 +1,28 @@
 import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ActionCreator, bindActionCreators, Dispatch } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import {
-  getCurrentUserId,
   isAuthenticated,
   getAccount
 } from '../../../../store/reducers/domain/account/selectors';
 import { State } from '../../../../store/reducers';
-import * as actions from '../../../../store/actions';
 import { withRouter } from 'react-router-dom';
-import { HeadWrapper } from '../../../components/head-wrapper';
 import SettingsMenu from '../settings-menu';
 import { DashboardContainer } from '../../../components/dashboard-container';
-import { Title } from '../../../components/title';
 import { Panel } from '../../../components/panel';
 import { SubPanel } from '../../../components/sub-panel';
 import { PanelWrapper } from '../../../components/panel-wrapper';
 import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
-import Radio from 'antd/lib/radio';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
-import moment from 'moment';
-import { AvatarUploader } from '../../../components/image-uploader';
 import { getAvatarUrl, getProfile } from '../../../../store/reducers/domain/profile/selectors';
-import { updateProfile } from '../../../../store/actions/user/update-profile-action';
+import { putAccountAction } from '../../../../store/actions/auth/put-account-action';
 
 const styles = require('./styles.less');
 
 const FormItem = Form.Item;
-const {MonthPicker, RangePicker} = DatePicker;
-const {TextArea} = Input;
 
 export interface IStateProps {
   isAuthenticated: boolean;
@@ -47,7 +37,7 @@ export interface IStateProps {
 
 export interface IDispatchProps {
   actions: {
-    updateProfile: typeof updateProfile;
+    putAccount: typeof putAccountAction;
   };
 }
 
@@ -56,27 +46,18 @@ type IPropsComponents = IStateProps & IDispatchProps & {
 };
 
 interface IState {
-  file: File;
+  confirmDirty: boolean;
 }
-
-const dateFormat = 'D MMMM YYYY';
 
 class AccountSettings extends React.PureComponent<IPropsComponents, IState> {
   constructor(props: IPropsComponents) {
     super(props);
+    this.state = {
+      confirmDirty: false
+    };
   }
 
   public render(): JSX.Element {
-    const formItemLayout = {
-      labelCol: {
-        xs: {span: 24},
-        sm: {span: 8}
-      },
-      wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 16}
-      }
-    };
     const {avatar, form} = this.props;
     const {getFieldDecorator} = form;
     return (
@@ -90,19 +71,29 @@ class AccountSettings extends React.PureComponent<IPropsComponents, IState> {
               <br/>
               <br/>
               <Form layout="vertical" style={{'maxWidth': '600px'}} onSubmit={this.handleSubmit}>
-                <FormItem {...formItemLayout} label="Текущий пароль">
-                  {getFieldDecorator('oldPassword')(<Input/>)}
-                </FormItem>
+                {/*<FormItem {...formItemLayout} label="Текущий пароль">*/}
+                  {/*{getFieldDecorator('oldPassword')(<Input/>)}*/}
+                {/*</FormItem>*/}
 
-                <FormItem {...formItemLayout} label="Новый пароль">
-                  {getFieldDecorator('password')(<Input type="textarea"/>)}
+                <FormItem
+                    label="Пароль"
+                >
+                  {getFieldDecorator('password', {
+                    rules: [{
+                      required: true, message: 'Введите пароль'
+                    }, {
+                      validator: this.validateToNextPassword
+                    }]
+                  })(
+                      <Input type="password"/>
+                  )}
                 </FormItem>
                 <FormItem
                     label="Ещё раз новый пароль"
                 >
                   {getFieldDecorator('confirm', {
                     rules: [{
-                      required: true, message: 'Please confirm your password!'
+                      required: true, message: 'Подтвердите пароль'
                     }, {
                       validator: this.compareToFirstPassword
                     }]
@@ -126,24 +117,32 @@ class AccountSettings extends React.PureComponent<IPropsComponents, IState> {
   private submitForm = (): void => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values, values.birthday.format('YYYY-MM-DD'));
-        const {expertId} = this.props;
-        const {file: avatar} = this.state;
-        const {firstName, lastName} = values;
-        this.props.actions.updateProfile(
-            expertId,
-            {
-              firstName,
-              lastName,
-              avatar
-            }
-        );
+        const {password} = values;
+        this.props.actions.putAccount(password);
       }
     });
   }
 
-  private onUploadedFile = (file: File) => {
-    this.setState({file});
+  private validateToNextPassword = (rule: any, value: any, callback: any) => {
+    const form = this.props.form;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], {force: true});
+    }
+    callback();
+  }
+
+  private compareToFirstPassword = (rule: any, value: any, callback: any) => {
+    const form = this.props.form;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Пароли не совпадают');
+    } else {
+      callback();
+    }
+  }
+
+  private handleConfirmBlur = (e: any) => {
+    const value = e.target.value;
+    this.setState({confirmDirty: this.state.confirmDirty || !!value});
   }
 }
 
@@ -186,7 +185,7 @@ const mapStateToProps = (state: State): IStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => ({
   actions: bindActionCreators({
-    updateProfile
+    putAccount: putAccountAction
   }, dispatch)
 });
 // const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => bindActionCreators({

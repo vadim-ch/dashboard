@@ -84,7 +84,9 @@ export function account(
       if (action.status === RequestStatus.Complete) {
         return {
           ...state,
-          userId: action.payload.userId
+          userId: action.payload.userId,
+          profileId: action.payload.profileId,
+          isPasswordExist: action.payload.isPasswordExist
         };
       }
       return state;
