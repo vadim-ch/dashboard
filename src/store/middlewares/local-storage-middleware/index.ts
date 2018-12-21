@@ -5,7 +5,7 @@ import { LOGIN, LoginAction } from '../../actions/auth/login';
 import { REFRESH_TOKEN, RefreshTokenAction } from '../../actions/auth/refresh-token';
 import { RequestStatus } from '../../../api/types';
 import { REGISTER, RegisterAction } from '../../actions/auth/register';
-import {EMAIL_SIGIN, EmailSigninAction} from '../../actions/auth/email-signin';
+import {EMAIL_SIGNIN, EmailSigninAction} from '../../actions/auth/email-signin';
 import { LocalStorage } from '../../../utils/storage';
 import { getAccessToken, getRefreshToken } from '../../reducers/domain/account/selectors';
 
@@ -38,7 +38,7 @@ export const localStorageMiddleware = store => next => (
     }
     case REGISTER:
     case REFRESH_TOKEN:
-    case EMAIL_SIGIN:
+    case EMAIL_SIGNIN:
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         if (action.payload.accessToken) {

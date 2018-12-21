@@ -7,7 +7,7 @@ import { RequestStatus } from '../../../api/types';
 import { RouteNames } from '../../../view/router';
 import { push } from 'connected-react-router';
 import { getCurrentUser } from '../../actions/auth/get-current-user-action';
-import { EMAIL_SIGIN, emailSignin, EmailSigninAction } from '../../actions/auth/email-signin';
+import { EMAIL_SIGNIN, emailSignin, EmailSigninAction } from '../../actions/auth/email-signin';
 
 export const authMiddleware = store => next => async (
     action:
@@ -58,7 +58,7 @@ export const authMiddleware = store => next => async (
       }
       return next(action);
     }
-    case EMAIL_SIGIN: {
+    case EMAIL_SIGNIN: {
       if (action.status === RequestStatus.Complete) {
         store.dispatch(push(window.location.pathname));
       }

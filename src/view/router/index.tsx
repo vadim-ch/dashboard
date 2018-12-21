@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 export const RouteNames = {
   Home: '/',
   Login: '/login',
+  LoginRequest: '/login-request',
   Register: '/register',
   Search: '/search'
 };

@@ -7,7 +7,7 @@ import { GetProfileAction } from '../../../actions/user/get-profile-action';
 import { START_APP, StartAppAction } from '../../../actions/start-app';
 import { UpdateProfileAction } from '../../../actions/user/update-profile-action';
 import { GET_CURRENT_USER, GetCurrentUserAction } from '../../../actions/auth/get-current-user-action';
-import { EMAIL_SIGIN, EmailSigninAction } from '../../../actions/auth/email-signin';
+import { EMAIL_SIGNIN, EmailSigninAction } from '../../../actions/auth/email-signin';
 
 const initialState = {
   userId: '',
@@ -45,7 +45,7 @@ export function account(
   switch (action.type) {
     case REGISTER:
     case REFRESH_TOKEN:
-    case EMAIL_SIGIN:
+    case EMAIL_SIGNIN:
     case LOGIN: {
       if (action.status === RequestStatus.Complete) {
         return {

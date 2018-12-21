@@ -11,6 +11,7 @@ import { startApp } from '../../store/actions';
 import { logout } from '../../store/actions';
 import Home from './home';
 import Login from './login';
+import LoginRequest from './login-request';
 import Register from './register';
 import Search from './search';
 import Dashboard from './dashboard';
@@ -76,6 +77,7 @@ class App extends React.PureComponent<IPropsComponents, void> {
               <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route path={RouteNames.Login} component={Login}/>
+                <Route path={RouteNames.LoginRequest} component={LoginRequest}/>
                 {/*<Route path={RouteNames.Register} component={Register}/>*/}
                 <Route path={RouteNames.Search} component={Search}/>
                 {/*<Route path='/editor/:slug' component={Editor} />*/}
